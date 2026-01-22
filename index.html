@@ -177,16 +177,30 @@
                 </tbody>
             </table>
         </section>
+
+        
     </div>
 
     <div id="feedback" class="page-section">
-        <h1>Feedback</h1>
-        <div style="background: white; padding: 20px; border-radius: 10px; text-align: center;">
-            <p>Hier kannst du dein Feedback hinterlassen.</p>
-            <textarea style="width: 100%; height: 100px; margin-bottom: 10px;" placeholder="Deine Nachricht..."></textarea><br>
-            <button style="padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px;">Absenden</button>
+    <h1>Feedback</h1>
+    <div style="background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <p>Deine Meinung ist mir wichtig! Gib hier dein Feedback ein:</p>
+        
+        <form action="https://formspree.io/f/DEINE_ID_HIER" method="POST" id="feedback-form">
+            <input type="email" name="email" placeholder="kadirabanozlaptop@gmail.com" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+            
+            <textarea name="nachricht" style="width: 100%; height: 150px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; padding: 10px; box-sizing: border-box;" placeholder="Schreib hier dein Feedback..." required></textarea>
+            
+            <button type="submit" style="padding: 12px 25px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%;">Absenden</button>
+        </form>
+        
+        <div id="status-meldung" style="margin-top: 15px; display: none; color: green; font-weight: bold;">
+            Vielen Dank! Dein Feedback wurde erfolgreich gesendet.
         </div>
     </div>
+</div>
+
+    
 
     <div id="xyz" class="page-section">
         <h1>Bereich XYZ</h1>
