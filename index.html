@@ -212,5 +212,73 @@
         </div>
     </details>
 
+    
+
+    <hr> <section id="merkmale-bereich" style="margin-top: 40px; text-align: center;">
+    <h2>Besondere Merkmale</h2>
+    <p>Klicke auf ein Merkmal, um die betroffenen Bundesländer auf der Karte zu sehen:</p>
+
+    <div class="button-container">
+        <button onclick="zeigeBild('kueste')">Küstenländer</button>
+        <button onclick="zeigeBild('stadtstaaten')">Stadtstaaten</button>
+        <button onclick="zeigeBild('neue-laender')">Neue Bundesländer</button>
+        <button onclick="zeigeBild('alpen')">Alpenregion</button>
+    </div>
+
+    <div id="bild-anzeige" style="margin-top: 20px; min-height: 400px;">
+        <p id="platzhalter-text" style="color: #888;">Bitte wähle ein Merkmal aus.</p>
+        <img id="merkmal-bild" src="" alt="Landkarte Merkmal" style="display: none; max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+    </div>
+</section>
+
+<style>
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+    .button-container button {
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #2ecc71;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+    .button-container button:hover {
+        background-color: #27ae60;
+    }
+</style>
+
+<script>
+    function zeigeBild(merkmal) {
+        const bildElement = document.getElementById('merkmal-bild');
+        const platzhalter = document.getElementById('platzhalter-text');
+        
+        // Hier legst du fest, welches Bild bei welchem Klick kommt
+        let bildPfad = "";
+        
+        if(merkmal === 'kueste') {
+            bildPfad = "kuestenlaender_karte.jpg"; // Dein Bildname
+        } else if(merkmal === 'stadtstaaten') {
+            bildPfad = "stadtstaaten_karte.jpg"; 
+        } else if(merkmal === 'neue-laender') {
+            bildPfad = "ostdeutschland_karte.jpg";
+        } else if(merkmal === 'alpen') {
+            bildPfad = "alpen_karte.jpg";
+        }
+
+        if(bildPfad !== "") {
+            bildElement.src = bildPfad;
+            bildElement.style.display = "inline-block";
+            platzhalter.style.display = "none";
+        }
+    }
+</script>
+
 </body>
 </html>
