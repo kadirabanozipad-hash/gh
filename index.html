@@ -11,21 +11,28 @@
             background-color: #FFD39B;
             color: #333;
             max-width: 800px;
-            margin: 0 auto 40px auto; /* Margin oben auf 0 wegen Navbar */
+            margin: 0 auto 40px auto;
             padding: 0 20px;
         }
 
-        /* Navigationsleiste Styling */
+        /* Dynamische Navigationsleiste */
         .main-nav {
             display: flex;
             justify-content: center;
             background-color: #2c3e50;
             padding: 10px;
-            position: sticky;
+            position: fixed; /* Fest oben fixiert */
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            margin: 0 -20px 30px -20px; /* Damit sie über die volle Breite geht */
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-in-out; /* Animation für das Ein-/Ausblenden */
+        }
+
+        /* Klasse zum Verstecken der Leiste (wird per JS hinzugefügt) */
+        .nav-hidden {
+            transform: translateY(-100%);
         }
 
         .main-nav button {
@@ -41,109 +48,58 @@
             margin: 0 5px;
         }
 
-        .main-nav button:hover {
-            background-color: #34495e;
+        .main-nav button:hover { background-color: #34495e; }
+        .main-nav button.active { background-color: #3498db; }
+
+        /* Platzhalter, damit der Inhalt nicht unter der fixierten Navbar startet */
+        .spacer {
+            height: 70px;
         }
 
-        .main-nav button.active {
-            background-color: #3498db;
-        }
-
-        /* Bereich-Sichtbarkeit */
         .page-section {
             display: none;
             animation: fadeIn 0.4s ease-in;
         }
 
-        .page-section.active {
-            display: block;
-        }
+        .page-section.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Bestehendes Styling */
+        /* Restliches Styling */
         h1 { text-align: center; color: #2c3e50; }
-        
         details {
             background: #EEE9E9;
             margin-bottom: 10px;
             padding: 10px 15px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
         }
         details[open] { border-left: 5px solid #3498db; }
-        
-        summary {
-            font-weight: bold;
-            cursor: pointer;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        summary::after {
-            content: '▶';
-            font-size: 0.8em;
-            color: #3498db;
-            transition: transform 0.3s;
-        }
+        summary { font-weight: bold; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '▶'; font-size: 0.8em; color: #3498db; transition: transform 0.3s; }
         details[open] summary::after { transform: rotate(90deg); }
-        
-        .content {
-            padding: 15px 0 5px;
-            border-top: 1px solid #eee;
-            margin-top: 10px;
-        }
+        .content { padding: 15px 0 5px; border-top: 1px solid #eee; margin-top: 10px; }
         .bundesland-name { color: #2980b9; font-size: 1.2em; margin: 0; }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .button-container button {
-            padding: 12px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        .button-container button:hover { background-color: #27ae60; }
-
-        .lehrplan-tabelle {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .lehrplan-tabelle th {
-            background-color: #34495e;
-            color: white;
-            text-align: left;
-            padding: 12px 15px;
-        }
+        .button-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .button-container button { padding: 12px 20px; cursor: pointer; background-color: #2ecc71; color: white; border: none; border-radius: 5px; }
+        .lehrplan-tabelle { width: 100%; border-collapse: collapse; background-color: white; border-radius: 8px; overflow: hidden; }
+        .lehrplan-tabelle th { background-color: #34495e; color: white; text-align: left; padding: 12px 15px; }
         .lehrplan-tabelle td { padding: 10px 15px; border-bottom: 1px solid #eee; }
         .lehrplan-tabelle a { color: #3498db; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <nav class="main-nav">
+    <nav class="main-nav" id="navbar">
         <button id="btn-inhalt" class="active" onclick="showSection('inhalt')">Inhalt</button>
         <button id="btn-feedback" onclick="showSection('feedback')">Feedback</button>
         <button id="btn-xyz" onclick="showSection('xyz')">XYZ</button>
     </nav>
+
+    <div class="spacer"></div>
 
     <div id="inhalt" class="page-section active">
         <h1>Deutschlands Flickenteppich der Leistungsbewertung</h1>
@@ -173,24 +129,10 @@
 
         <details><summary>Berlin</summary><div class="content"><p class="bundesland-name">Berlin</p><p>Infos folgen...</p></div></details>
         <details><summary>Brandenburg</summary><div class="content"><p class="bundesland-name">Brandenburg</p><ul><li>Keine Ziffernnoten in Jahrgang 1–2.</li></ul></div></details>
-        <details><summary>Bremen</summary><div class="content"><p class="bundesland-name">Bremen</p><p>Infos folgen...</p></div></details>
-        <details><summary>Hamburg</summary><div class="content"><p class="bundesland-name">Hamburg</p><p>Infos folgen...</p></div></details>
-        <details><summary>Hessen</summary><div class="content"><p class="bundesland-name">Hessen</p><p>Infos folgen...</p></div></details>
-        <details><summary>Mecklenburg-Vorpommern</summary><div class="content"><p class="bundesland-name">Mecklenburg-Vorpommern</p><p>Infos folgen...</p></div></details>
-        <details><summary>Niedersachsen</summary><div class="content"><p class="bundesland-name">Niedersachsen</p><p>Infos folgen...</p></div></details>
-        <details><summary>Nordrhein-Westfalen</summary><div class="content"><p class="bundesland-name">Nordrhein-Westfalen</p><p>Infos folgen...</p></div></details>
-        <details><summary>Rheinland-Pfalz</summary><div class="content"><p class="bundesland-name">Rheinland-Pfalz</p><p>Infos folgen...</p></div></details>
-        <details><summary>Saarland</summary><div class="content"><p class="bundesland-name">Saarland</p><p>Infos folgen...</p></div></details>
-        <details><summary>Sachsen</summary><div class="content"><p class="bundesland-name">Sachsen</p><p>Infos folgen...</p></div></details>
-        <details><summary>Sachsen-Anhalt</summary><div class="content"><p class="bundesland-name">Sachsen-Anhalt</p><p>Infos folgen...</p></div></details>
-        <details><summary>Schleswig-Holstein</summary><div class="content"><p class="bundesland-name">Schleswig-Holstein</p><p>Infos folgen...</p></div></details>
-        <details><summary>Thüringen</summary><div class="content"><p class="bundesland-name">Thüringen</p><p>Infos folgen...</p></div></details>
 
         <hr> 
-        
         <section id="merkmale-bereich" style="margin-top: 40px; text-align: center;">
             <h2>Gemeinsamkeiten</h2>
-            <p>Klicke auf ein Merkmal, um die betroffenen Länder zu sehen:</p>
             <div class="button-container">
                 <button onclick="zeigeBild('kueste')">Küstenländer</button>
                 <button onclick="zeigeBild('stadtstaaten')">Stadtstaaten</button>
@@ -199,7 +141,7 @@
             </div>
             <div id="bild-anzeige" style="margin-top: 20px; min-height: 200px;">
                 <p id="platzhalter-text" style="color: #888;">Bitte wähle ein Merkmal aus.</p>
-                <img id="merkmal-bild" src="" alt="Landkarte Merkmal" style="display: none; max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 10px;">
+                <img id="merkmal-bild" src="" alt="Landkarte" style="display: none; max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 10px;">
             </div>
         </section>
 
@@ -207,22 +149,19 @@
 
         <section id="lehrplaene-sektion" style="margin-top: 40px;">
             <h2 style="text-align: center; color: #2c3e50;">Für detailliertere Informationen</h2>
-            <div style="overflow-x: auto;">
-                <table class="lehrplan-tabelle">
-                    <thead><tr><th>Bundesland</th><th>Link</th></tr></thead>
-                    <tbody>
-                        <tr><td>Nordrhein-Westfalen</td><td><a href="https://bass.schule.nrw/6043.htm#1-1p48" target="_blank">Zum Schulgesetz</a></td></tr>
-                        <tr><td>Bayern</td><td><a href="#" target="_blank">Zum Lehrplan</a></td></tr>
-                        </tbody>
-                </table>
-            </div>
+            <table class="lehrplan-tabelle">
+                <thead><tr><th>Bundesland</th><th>Link</th></tr></thead>
+                <tbody>
+                    <tr><td>Nordrhein-Westfalen</td><td><a href="https://bass.schule.nrw/6043.htm#1-1p48" target="_blank">Zum Schulgesetz</a></td></tr>
+                </tbody>
+            </table>
         </section>
     </div>
 
     <div id="feedback" class="page-section">
         <h1>Feedback</h1>
         <div style="background: white; padding: 20px; border-radius: 10px; text-align: center;">
-            <p>Hier kannst du später deine Feedback-Inhalte einfügen.</p>
+            <p>Hier kannst du dein Feedback hinterlassen.</p>
             <textarea style="width: 100%; height: 100px; margin-bottom: 10px;" placeholder="Deine Nachricht..."></textarea><br>
             <button style="padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px;">Absenden</button>
         </div>
@@ -231,36 +170,43 @@
     <div id="xyz" class="page-section">
         <h1>Bereich XYZ</h1>
         <div style="background: white; padding: 20px; border-radius: 10px;">
-            <p>Dies ist der Bereich für deine weiteren Informationen (XYZ).</p>
+            <p>Inhalt für XYZ...</p>
         </div>
     </div>
 
     <script>
-        // Funktion zum Wechseln der Sektionen
-        function showSection(sectionId) {
-            // Alle Sektionen verstecken
-            document.querySelectorAll('.page-section').forEach(sec => {
-                sec.classList.remove('active');
-            });
-            // Alle Buttons inaktiv
-            document.querySelectorAll('.main-nav button').forEach(btn => {
-                btn.classList.remove('active');
-            });
+        // Logik für das Ein-/Ausblenden der Navbar beim Scrollen
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            // Gewählte Sektion und Button aktivieren
+            if (scrollTop > lastScrollTop && scrollTop > 50) {
+                // Runterscrollen -> Navbar verstecken
+                navbar.classList.add('nav-hidden');
+            } else {
+                // Hochscrollen -> Navbar zeigen
+                navbar.classList.remove('nav-hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
+        }, false);
+
+        // Sektionen umschalten
+        function showSection(sectionId) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.main-nav button').forEach(btn => btn.classList.remove('active'));
+            
             document.getElementById(sectionId).classList.add('active');
             document.getElementById('btn-' + sectionId).classList.add('active');
-            
-            // Nach oben scrollen beim Wechsel
             window.scrollTo(0, 0);
         }
 
-        // Funktion für die Bilder
+        // Bilder-Funktion
         function zeigeBild(merkmal) {
             const bildElement = document.getElementById('merkmal-bild');
             const platzhalter = document.getElementById('platzhalter-text');
             let bildPfad = "";
-            
             if(merkmal === 'kueste') bildPfad = "country.svg";
             else if(merkmal === 'stadtstaaten') bildPfad = "stadtstaaten_karte.jpg"; 
             else if(merkmal === 'neue-laender') bildPfad = "country (1).svg";
