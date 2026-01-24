@@ -702,92 +702,72 @@
     
 
 <div id="xyz" class="page-section">
-    <h1>🎓 Bundesländer-Quiz</h1>
+    <div style="text-align: center; margin-bottom: 25px;">
+        <h1 style="margin-bottom: 5px;">🎓 Bundesländer-Quiz</h1>
+        <p style="font-size: 1.2em; color: #e67e22; font-weight: bold; animation: bounce 2s infinite;">
+            ⬇️ Na, traust du dich? Zeig was du drauf hast! ⬇️
+        </p>
+    </div>
     
-    <div class="quiz-layout-container">
-        <div class="questions-side">
-            <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                
-                <div class="quiz-container" style="margin-bottom: 30px;">
-                    <p><strong>1. In welchem Bundesland beginnt die Notenvergabe oft schon in der 2. Klasse?</strong></p>
-                    <button class="quiz-btn" onclick="checkQuiz(this, true)">Bayern</button>
-                    <button class="quiz-btn" onclick="checkQuiz(this, false)">Bremen</button>
-                    <button class="quiz-btn" onclick="checkQuiz(this, false)">Berlin</button>
-                </div>
-
-                <div class="quiz-container" style="margin-bottom: 30px;">
-                    <p><strong>2. Welches Bundesland hat in den Klassen 1-3 offiziell keine Ziffernnoten?</strong></p>
-                    <button class="quiz-btn" onclick="checkQuiz(this, false)">Sachsen</button>
-                    <button class="quiz-btn" onclick="checkQuiz(this, true)">Baden-Württemberg</button>
-                    <button class="quiz-btn" onclick="checkQuiz(this, false)">Hessen</button>
-                </div>
-
-                <div class="quiz-container" style="margin-bottom: 30px;">
-                    <p><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
-                    <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
-                    <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
-                    <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
-                </div>
-
-                <button id="reset-btn" onclick="resetQuiz()">🔄 Quiz neu starten</button>
-            </div>
+    <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 800px; margin: 0 auto; position: relative; overflow: hidden;">
+        
+        <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>1. In welchem Bundesland beginnt die Notenvergabe oft schon in der 2. Klasse?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bayern</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Bremen</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Berlin</button>
         </div>
 
-        <div class="score-side">
-            <div class="score-card">
-                <div style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Dein Punktestand</div>
-                <div id="score-display"><span id="score">0</span><small>/3</small></div>
-                <div id="quiz-status">Viel Glück! 🍀</div>
+        <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>2. Welches Bundesland hat in den Klassen 1-3 offiziell keine Ziffernnoten?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Sachsen</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Baden-Württemberg</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Hessen</button>
+        </div>
+
+        <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
+        </div>
+
+        <div class="bottom-score-banner" id="score-banner">
+            <div style="flex: 1;">
+                <span style="display: block; font-size: 0.8em; text-transform: uppercase; opacity: 0.8;">Dein Score</span>
+                <span id="score-display" style="font-size: 2em; font-weight: bold; color: #2ecc71;"><span id="score">0</span> / 3</span>
+            </div>
+            <div id="quiz-status" style="flex: 2; font-size: 1.2em; font-weight: 500; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 20px;">
+                Viel Glück! 🍀
+            </div>
+            <div style="flex: 1;">
+                <button id="reset-btn" onclick="resetQuiz()">🔄 Neustart</button>
             </div>
         </div>
     </div>
 </div>
 
+<canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
+
 <style>
-    /* Layout-Steuerung */
-    .quiz-layout-container {
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+        40% {transform: translateY(-10px);}
+        60% {transform: translateY(-5px);}
+    }
+
+    .bottom-score-banner {
+        background: #34495e;
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
         display: flex;
-        gap: 20px;
-        align-items: flex-start;
-        flex-wrap: wrap; /* Für Mobile-Ansicht */
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        transition: background-color 0.5s ease;
     }
 
-    .questions-side {
-        flex: 2;
-        min-width: 300px;
-    }
-
-    .score-side {
-        flex: 1;
-        min-width: 250px;
-        position: sticky;
-        top: 20px;
-    }
-
-    /* Score Card Styling */
-    .score-card {
-        background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-        color: white;
-        padding: 30px;
-        border-radius: 15px;
-        text-align: center;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    }
-
-    #score-display {
-        font-size: 3.5em;
-        font-weight: bold;
-        margin: 10px 0;
-        color: #2ecc71;
-    }
-
-    #score-display small {
-        font-size: 0.4em;
-        color: white;
-        margin-left: 5px;
-    }
-
-    /* Button Styling */
     .quiz-btn {
         display: block;
         width: 100%;
@@ -798,12 +778,14 @@
         border-radius: 10px;
         cursor: pointer;
         text-align: left;
-        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: all 0.2s;
         font-size: 15px;
+        font-family: inherit;
     }
 
     .quiz-btn:hover:not(:disabled) {
-        transform: scale(1.02);
+        background-color: #e9ecef;
+        transform: translateX(5px);
         border-color: #3498db;
     }
 
@@ -811,47 +793,29 @@
         background-color: #2ecc71 !important;
         color: white !important;
         border-color: #27ae60 !important;
-        animation: pop 0.4s ease;
     }
 
     .quiz-wrong {
         background-color: #e74c3c !important;
         color: white !important;
         border-color: #c0392b !important;
-        animation: shake 0.4s ease;
     }
 
     #reset-btn {
-        margin-top: 10px;
-        padding: 12px;
-        width: 100%;
-        background-color: #ecf0f1;
-        color: #2c3e50;
-        border: none;
-        border-radius: 8px;
+        padding: 10px 15px;
+        background: rgba(255,255,255,0.1);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 6px;
         cursor: pointer;
         font-weight: bold;
-        transition: 0.3s;
     }
 
-    #reset-btn:hover { background-color: #bdc3c7; }
+    #reset-btn:hover { background: white; color: #34495e; }
 
-    /* Animationen */
-    @keyframes pop {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        75% { transform: translateX(5px); }
-    }
-
-    /* Mobile Anpassung */
-    @media (max-width: 768px) {
-        .quiz-layout-container { flex-direction: column; }
-        .score-side { width: 100%; order: -1; position: static; }
+    @media (max-width: 600px) {
+        .bottom-score-banner { flex-direction: column; gap: 15px; text-align: center; }
+        #quiz-status { border-left: none; padding-left: 0; }
     }
 </style>
 
@@ -860,9 +824,8 @@
     let answered = 0;
 
     function checkQuiz(btn, isCorrect) {
-        const parent = btn.parentElement;
-        const buttons = parent.querySelectorAll('.quiz-btn');
-        
+        if(btn.disabled) return;
+        const buttons = btn.parentElement.querySelectorAll('.quiz-btn');
         buttons.forEach(b => b.disabled = true);
         answered++;
 
@@ -874,19 +837,22 @@
             btn.classList.add('quiz-wrong');
             btn.innerHTML += " ❌";
             buttons.forEach(b => {
-                if (b.getAttribute('onclick').includes('true')) {
-                    b.classList.add('quiz-correct');
-                }
+                if (b.getAttribute('onclick').includes('true')) b.classList.add('quiz-correct');
             });
         }
 
         document.getElementById('score').innerText = score;
         const status = document.getElementById('quiz-status');
         
-        if (answered === 1) status.innerText = "Guter Anfang! 🚀";
-        if (answered === 2) status.innerText = "Einer geht noch! 💪";
+        if (answered === 1) status.innerText = "Guter Start! 🚀";
+        if (answered === 2) status.innerText = "Dranbleiben! 💪";
         if (answered === 3) {
-            status.innerText = score === 3 ? "Perfekt! 🏆" : "Geschafft! 😊";
+            if(score === 3) {
+                status.innerText = "GENIAL! 🔥 Volle Punktzahl!";
+                startConfetti();
+            } else {
+                status.innerText = "Geschafft! 😊";
+            }
         }
     }
 
@@ -900,6 +866,54 @@
             b.disabled = false;
             b.innerText = b.innerText.replace(" ✨", "").replace(" ❌", "");
         });
+        stopConfetti();
+    }
+
+    // --- KONFETTI LOGIK ---
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId;
+
+    function startConfetti() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        for (let i = 0; i < 150; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                r: Math.random() * 6 + 4,
+                d: Math.random() * 150,
+                color: `hsl(${Math.random() * 360}, 70%, 50%)`,
+                tilt: Math.random() * 10 - 10
+            });
+        }
+        renderConfetti();
+    }
+
+    function renderConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, i) => {
+            p.y += Math.cos(p.d) + 3 + p.r / 2;
+            p.tilt = Math.sin(p.d) * 15;
+            ctx.beginPath();
+            ctx.lineWidth = p.r;
+            ctx.strokeStyle = p.color;
+            ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+            ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+            ctx.stroke();
+            if (p.y > canvas.height) {
+                particles[i].y = -20;
+                particles[i].x = Math.random() * canvas.width;
+            }
+        });
+        animationId = requestAnimationFrame(renderConfetti);
+    }
+
+    function stopConfetti() {
+        cancelAnimationFrame(animationId);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles = [];
     }
 </script>
     
