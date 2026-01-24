@@ -640,24 +640,21 @@
     <div style="background: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto;">
         <p style="color: #666; margin-bottom: 25px;">Haben dir die Infos zum Flickenteppich geholfen? Was kann ich verbessern? Ich freue mich über jede Nachricht!</p>
         
-        <form action="https://formspree.io/f/xlgjzvjl" method="POST" id="feedback-form">
-            <div style="text-align: left; margin-bottom: 15px;">
-                <label style="font-weight: bold; font-size: 0.9em; color: #2c3e50;">Deine E-Mail-Adresse (optional):</label>
-                <input type="email" name="email" placeholder="beispiel@mail.de" 
-                    style="width: 100%; padding: 12px; margin-top: 5px; border: 2px solid #edf2f7; border-radius: 8px; box-sizing: border-box; outline: none; transition: border-color 0.3s;">
-            </div>
-            
-            <div style="text-align: left; margin-bottom: 20px;">
-                <label style="font-weight: bold; font-size: 0.9em; color: #2c3e50;">Deine Nachricht:</label>
-                <textarea name="nachricht" required placeholder="Was möchtest du mir sagen?" 
-                    style="width: 100%; height: 120px; margin-top: 5px; border: 2px solid #edf2f7; border-radius: 8px; padding: 12px; box-sizing: border-box; outline: none; transition: border-color 0.3s; resize: vertical;"></textarea>
-            </div>
-            
-            <button type="submit" id="submit-btn" 
-                style="padding: 15px 25px; background: #3498db; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; transition: background 0.3s; box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);">
-                Nachricht abschicken 🚀
-            </button>
-        </form>
+<form
+  action="https://formspree.io/f/xlgjzvjl"
+  method="POST">
+  <label>
+    Your email:
+    <input type="email" name="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message"></textarea>
+  </label>
+  <!-- your other form fields go here -->
+  <button type="submit">Send</button>
+</form>
+
         
         <div id="status-meldung" style="margin-top: 20px; display: none; padding: 15px; background-color: #d4edda; color: #155724; border-radius: 8px; border: 1px solid #c3e6cb; font-weight: bold; animation: fadeIn 0.5s;">
             ✅ Vielen Dank! Dein Feedback ist sicher gelandet.
