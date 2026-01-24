@@ -119,6 +119,29 @@
         
         <p style="text-align: center;">Klicke auf ein Bundesland, um mehr zu erfahren:</p>
 
+<style>
+
+    /* Die Unterliste einrücken und Punkte entfernen */
+.sub-list {
+    list-style-type: none; 
+    padding-left: 25px;   
+    margin-top: 5px;      
+    
+    /* Hier sind die Änderungen: */
+    font-size: 0.9em;     /* Macht die Schrift etwas kleiner (90% vom Standard) */
+    color: #777777;       /* Ein schönes, lesbares Grau */
+}
+
+/* Den Pfeil stylen */
+.sub-list li::before {
+    content: "➔";         
+    margin-right: 10px;    
+    font-weight: bold;
+    /* Der Pfeil erbt automatisch die graue Farbe der Liste */
+}
+
+<style>
+        
         <details>
             <summary>Baden-Württemberg</summary>
             <div class="content">
