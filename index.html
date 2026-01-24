@@ -709,7 +709,7 @@
         </p>
     </div>
     
-    <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 800px; margin: 0 auto; position: relative; overflow: hidden;">
+    <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 800px; margin: 0 auto; position: relative;">
         
         <div class="quiz-container" style="margin-bottom: 30px;">
             <p style="font-size: 1.1em;"><strong>1. In welchem Bundesland beginnt die Notenvergabe oft schon in der 2. Klasse?</strong></p>
@@ -747,81 +747,28 @@
     </div>
 </div>
 
-<canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
+<canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: none;"></canvas>
 
 <style>
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-        40% {transform: translateY(-10px);}
-        60% {transform: translateY(-5px);}
-    }
-
-    .bottom-score-banner {
-        background: #34495e;
-        color: white;
-        padding: 20px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 20px;
-        transition: background-color 0.5s ease;
-    }
-
-    .quiz-btn {
-        display: block;
-        width: 100%;
-        padding: 14px;
-        margin: 8px 0;
-        background-color: #f8f9fa;
-        border: 2px solid #dee2e6;
-        border-radius: 10px;
-        cursor: pointer;
-        text-align: left;
-        transition: all 0.2s;
-        font-size: 15px;
-        font-family: inherit;
-    }
-
-    .quiz-btn:hover:not(:disabled) {
-        background-color: #e9ecef;
-        transform: translateX(5px);
-        border-color: #3498db;
-    }
-
-    .quiz-correct {
-        background-color: #2ecc71 !important;
-        color: white !important;
-        border-color: #27ae60 !important;
-    }
-
-    .quiz-wrong {
-        background-color: #e74c3c !important;
-        color: white !important;
-        border-color: #c0392b !important;
-    }
-
-    #reset-btn {
-        padding: 10px 15px;
-        background: rgba(255,255,255,0.1);
-        color: white;
-        border: 1px solid rgba(255,255,255,0.3);
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+    .bottom-score-banner { background: #34495e; color: white; padding: 20px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
+    .quiz-btn { display: block; width: 100%; padding: 14px; margin: 8px 0; background-color: #f8f9fa; border: 2px solid #dee2e6; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.2s; font-size: 15px; }
+    .quiz-btn:hover:not(:disabled) { background-color: #e9ecef; transform: translateX(5px); border-color: #3498db; }
+    .quiz-correct { background-color: #2ecc71 !important; color: white !important; border-color: #27ae60 !important; }
+    .quiz-wrong { background-color: #e74c3c !important; color: white !important; border-color: #c0392b !important; }
+    #reset-btn { padding: 10px 15px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; cursor: pointer; font-weight: bold; }
     #reset-btn:hover { background: white; color: #34495e; }
-
-    @media (max-width: 600px) {
-        .bottom-score-banner { flex-direction: column; gap: 15px; text-align: center; }
-        #quiz-status { border-left: none; padding-left: 0; }
-    }
+    @media (max-width: 600px) { .bottom-score-banner { flex-direction: column; gap: 15px; text-align: center; } #quiz-status { border-left: none; padding-left: 0; } }
 </style>
 
 <script>
     let score = 0;
     let answered = 0;
+    let confettiActive = false;
+    let particles = [];
+    let animationId;
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
 
     function checkQuiz(btn, isCorrect) {
         if(btn.disabled) return;
@@ -836,20 +783,17 @@
         } else {
             btn.classList.add('quiz-wrong');
             btn.innerHTML += " ❌";
-            buttons.forEach(b => {
-                if (b.getAttribute('onclick').includes('true')) b.classList.add('quiz-correct');
-            });
+            buttons.forEach(b => { if (b.getAttribute('onclick').includes('true')) b.classList.add('quiz-correct'); });
         }
 
         document.getElementById('score').innerText = score;
         const status = document.getElementById('quiz-status');
         
-        if (answered === 1) status.innerText = "Guter Start! 🚀";
-        if (answered === 2) status.innerText = "Dranbleiben! 💪";
         if (answered === 3) {
             if(score === 3) {
-                status.innerText = "GENIAL! 🔥 Volle Punktzahl!";
+                status.innerText = "GENIAL! 🔥";
                 startConfetti();
+                setTimeout(stopConfetti, 5000); // Stoppt automatisch nach 5 Sek
             } else {
                 status.innerText = "Geschafft! 😊";
             }
@@ -857,8 +801,7 @@
     }
 
     function resetQuiz() {
-        score = 0;
-        answered = 0;
+        score = 0; answered = 0;
         document.getElementById('score').innerText = "0";
         document.getElementById('quiz-status').innerText = "Viel Glück! 🍀";
         document.querySelectorAll('.quiz-btn').forEach(b => {
@@ -870,14 +813,13 @@
     }
 
     // --- KONFETTI LOGIK ---
-    const canvas = document.getElementById('confetti-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let animationId;
-
     function startConfetti() {
+        if(confettiActive) return;
+        confettiActive = true;
+        canvas.style.display = 'block';
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        particles = [];
         for (let i = 0; i < 150; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
@@ -892,29 +834,37 @@
     }
 
     function renderConfetti() {
+        if(!confettiActive) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach((p, i) => {
             p.y += Math.cos(p.d) + 3 + p.r / 2;
             p.tilt = Math.sin(p.d) * 15;
             ctx.beginPath();
-            ctx.lineWidth = p.r;
-            ctx.strokeStyle = p.color;
+            ctx.lineWidth = p.r; ctx.strokeStyle = p.color;
             ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
             ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
             ctx.stroke();
-            if (p.y > canvas.height) {
-                particles[i].y = -20;
-                particles[i].x = Math.random() * canvas.width;
-            }
+            if (p.y > canvas.height) p.y = -20;
         });
         animationId = requestAnimationFrame(renderConfetti);
     }
 
     function stopConfetti() {
+        confettiActive = false;
         cancelAnimationFrame(animationId);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles = [];
+        canvas.style.display = 'none';
     }
+
+    // --- WICHTIG: Stoppt Konfetti beim Menü-Wechsel ---
+    // Wir überschreiben deine showSection Funktion minimal
+    const originalShowSection = window.showSection;
+    window.showSection = function(sectionId) {
+        stopConfetti(); // Konfetti immer stoppen, wenn man den Reiter wechselt
+        if(typeof originalShowSection === 'function') {
+            originalShowSection(sectionId);
+        }
+    };
 </script>
     
 
