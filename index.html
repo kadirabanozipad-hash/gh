@@ -743,38 +743,182 @@ details[open]:hover {
 
             
          
-<section id="vergleichs-sektion" style="max-width: 900px; margin: 40px auto; font-family: sans-serif;">
-    <h2 style="text-align: center;">Bundesländer im Vergleich</h2>
-    
-    <div class="button-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px;">
-        <button onclick="updateAnsicht('kueste', 'Küstenländer', 'Diese Länder grenzen direkt an Nord- oder Ostsee.')">Küsten</button>
-        <button onclick="updateAnsicht('noten', 'Schulnoten', 'In diesen Bundesländern werden in der 1. und 2. Klasse keine Noten vergeben.')">Keine Noten (Kl. 1/2)</button>
-        <button onclick="updateAnsicht('stadt', 'Stadtstaaten', 'Besonderheiten der Bundesländer Berlin, Hamburg und Bremen.')">Stadtstaaten</button>
+<section id="bundesland-vergleich">
+    <style>
+        #bundesland-vergleich {
+            font-family: 'Inter', -apple-system, sans-serif;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        .headline-main {
+            text-align: center;
+            color: #007BFF; /* Deine Wunschfarbe */
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 35px;
+        }
+
+        /* Modernes Button-Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 2px solid #eee;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Hover-Effekt mit deiner grünen Farbe */
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #28A745; /* Deine Wunschfarbe */
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        /* Aktiver Zustand */
+        .feature-card.active {
+            border-color: #007BFF;
+            background: #f0f7ff;
+            box-shadow: inset 0 0 0 2px #007BFF;
+        }
+
+        .feature-card span {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        /* Inhalts-Container */
+        .display-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid #eee;
+            align-items: center;
+            min-height: 450px;
+            transition: all 0.5s ease;
+        }
+
+        @media (max-width: 850px) {
+            .display-container { grid-template-columns: 1fr; }
+        }
+
+        .text-content h3 {
+            color: #28A745; /* Grün für die Fakten-Titel */
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+
+        .text-content p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .image-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .map-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            display: none;
+            /* Cooler 3D Effekt für das Bild */
+            transform: rotateY(-5deg);
+            filter: drop-shadow(15px 15px 20px rgba(0,0,0,0.15));
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateZ(-50px) rotateY(-10deg); }
+            to { opacity: 1; transform: translateZ(0) rotateY(-5deg); }
+        }
+
+        .empty-state {
+            grid-column: span 2;
+            text-align: center;
+            color: #aaa;
+            font-size: 1.2rem;
+        }
+    </style>
+
+    <h2 class="headline-main">Fakten-Check: Bundesländer</h2>
+
+    <div class="card-grid">
+        <div class="feature-card" onclick="showFact(this, 'kueste', 'Küstenregionen', 'Hier weht eine frische Brise: Diese Länder haben direkten Zugang zum Meer.')">
+            <span>🌊 Küstenländer</span>
+        </div>
+        <div class="feature-card" onclick="showFact(this, 'stadtstaaten', 'Die Stadtstaaten', 'Berlin, Hamburg und Bremen sind sowohl Stadt als auch Bundesland.')">
+            <span>🏙️ Stadtstaaten</span>
+        </div>
+        <div class="feature-card" onclick="showFact(this, 'neue-laender', 'Kein Söder', 'Der bayerische Einfluss endet an diesen Grenzen. Diese Bundesländer gehören nicht zu Bayern.')">
+            <span>🚫 Kein Söder</span>
+        </div>
+        <div class="feature-card" onclick="showFact(this, 'noten', 'Notenfreie Zone', 'Keine Ziffernnoten in Klasse 1 und 2 – hier steht die pädagogische Entwicklung im Vordergrund.')">
+            <span>📝 Keine Noten (Kl. 1/2)</span>
+        </div>
     </div>
 
-    <div id="details-box" style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid #0055a5; margin-bottom: 20px; display: none;">
-        <h3 id="detail-titel" style="margin-top: 0;"></h3>
-        <p id="detail-text"></p>
-    </div>
+    <div class="display-container" id="content-box">
+        <div id="placeholder-text" class="empty-state">
+            <p>Klicke auf eine Kachel, um die Gemeinsamkeiten zu entdecken.</p>
+        </div>
 
-    <div style="text-align: center;">
-        <img id="merkmal-bild" src="" alt="Landkarte" style="display: none; width: 100%; max-width: 500px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div class="text-content" id="fact-text-container" style="display: none;">
+            <h3 id="fact-title"></h3>
+            <p id="fact-description"></p>
+        </div>
+
+        <div class="image-content">
+            <img id="fact-image" src="" alt="Karte" class="map-img">
+        </div>
     </div>
 </section>
 
 <script>
-function updateAnsicht(id, titel, beschreibung) {
-    // Bild aktualisieren
-    const img = document.getElementById('merkmal-bild');
-    img.src = 'pfad/zu/deinen/bildern/' + id + '.png'; 
-    img.style.display = 'inline-block';
+    function showFact(btn, imgKey, title, desc) {
+        // UI aufräumen
+        document.querySelectorAll('.feature-card').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('placeholder-text').style.display = 'none';
 
-    // Text aktualisieren
-    const infoBox = document.getElementById('details-box');
-    document.getElementById('detail-titel').innerText = titel;
-    document.getElementById('detail-text').innerText = beschreibung;
-    infoBox.style.display = 'block';
-}
+        // Text-Inhalt
+        const textContainer = document.getElementById('fact-text-container');
+        textContainer.style.display = 'block';
+        document.getElementById('fact-title').innerText = title;
+        document.getElementById('fact-description').innerText = desc;
+
+        // Bild-Inhalt mit kleiner Reset-Animation
+        const img = document.getElementById('fact-image');
+        img.style.display = 'none';
+        img.src = 'pfad/zu/bildern/' + imgKey + '.png'; // HIER PFAD ANPASSEN
+        
+        setTimeout(() => {
+            img.style.display = 'block';
+        }, 50);
+    }
 </script>
 
 
