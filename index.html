@@ -167,8 +167,19 @@ details[open]:hover {
 </div>
 
 <div id="stickyPlayer" class="sticky-audio-bar">
-    <div class="sticky-info">🎧 Podcast läuft...</div>
-    <audio id="stickyClone" controls style="height: 35px;"></audio>
+    <div class="sticky-info">
+        <span class="live-dot"></span> Podcast läuft...
+    </div>
+    
+    <div class="sticky-controls">
+        <button onclick="rewindAudio()" title="10 Sek zurück">⏪</button>
+        <button id="stickyPlayPause" onclick="togglePlayPause()">⏸</button>
+        <button onclick="forwardAudio()" title="10 Sek vor">⏩</button>
+    </div>
+
+    <div class="sticky-progress-container" onclick="seekAudio(event)">
+        <div id="stickyProgressBar" class="sticky-progress-bar"></div>
+    </div>
 </div>
 
 <style>
@@ -223,6 +234,47 @@ details[open]:hover {
 /* Soundwelle-Stile wie zuvor */
 .sound-wave span { width: 4px; background: #3498db; border-radius: 2px; animation: wave-anim 1.2s infinite ease-in-out; }
 @keyframes wave-anim { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.5); } }
+
+    .sticky-controls button {
+    background: #3498db;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.sticky-progress-container {
+    width: 150px;
+    height: 6px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+}
+
+.sticky-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #3498db;
+    border-radius: 3px;
+}
+
+.live-dot {
+    height: 8px;
+    width: 8px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; }
+}
+    
 </style>
 </style>
 
@@ -1199,46 +1251,44 @@ document.querySelectorAll('details').forEach((targetDetail) => {
 
 
 
+const mainAudio = document.getElementById('podcastAudio');
+const stickyPlayPause = document.getElementById('stickyPlayPause');
+const stickyProgressBar = document.getElementById('stickyProgressBar');
 
-        const mainAudio = document.getElementById('podcastAudio');
-const podcastCart = document.getElementById('mainPodcastCart');
-const stickyPlayer = document.getElementById('stickyPlayer');
-const wave = document.getElementById('wave');
-
-// Am Anfang die Animation starten
-podcastCart.classList.add('pulse-animation');
-
-// Wenn der Podcast gestartet wird
-mainAudio.onplay = function() {
-    // Stoppe das "Ploppen"
-    podcastCart.classList.remove('pulse-animation');
-    podcastCart.style.transform = "scale(1)";
-    podcastCart.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
-};
-
-// Wenn der Podcast pausiert wird, kann er wieder ploppen (optional)
-mainAudio.onpause = function() {
-    if (!mainAudio.ended) {
-        podcastCart.classList.add('pulse-animation');
-    }
-};
-
-// Scroll-Logik für die Sticky-Leiste
-window.addEventListener('scroll', function() {
-    const rect = mainAudio.getBoundingClientRect();
-    
-    // Wenn der Audio-Player oben aus dem Sichtfeld verschwindet UND Musik läuft
-    if (rect.bottom < 0 && !mainAudio.paused) {
-        stickyPlayer.classList.add('show');
+// Play/Pause umschalten
+function togglePlayPause() {
+    if (mainAudio.paused) {
+        mainAudio.play();
+        stickyPlayPause.innerText = "⏸";
     } else {
-        stickyPlayer.classList.remove('show');
+        mainAudio.pause();
+        stickyPlayPause.innerText = "▶";
     }
+}
+
+// 10 Sekunden vor/zurück
+function rewindAudio() { mainAudio.currentTime -= 10; }
+function forwardAudio() { mainAudio.currentTime += 10; }
+
+// Fortschrittsbalken aktualisieren
+mainAudio.addEventListener('timeupdate', () => {
+    const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
+    stickyProgressBar.style.width = progress + "%";
 });
 
-// WICHTIG: Den Standard-Player mit der Sticky-Leiste synchronisieren
-// In einer einfachen Version zeigen wir unten nur an, dass es läuft.
-// Für volle Kontrolle müsste man ein eigenes Player-Design bauen, 
-// aber die Browser-Controls sind stabiler.
+// Im Balken klicken zum Spulen
+function seekAudio(event) {
+    const container = event.currentTarget;
+    const rect = container.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const width = rect.width;
+    const percent = x / width;
+    mainAudio.currentTime = percent * mainAudio.duration;
+}
+
+// Synchronisiere Buttons (falls oben im Player geklickt wird)
+mainAudio.onplay = () => { stickyPlayPause.innerText = "⏸"; };
+mainAudio.onpause = () => { stickyPlayPause.innerText = "▶"; };
 
 
 
