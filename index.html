@@ -969,6 +969,247 @@ details[open]:hover {
         </div>
  
 
+
+
+            <div style="margin-top: 80px; border-top: 3px solid #ffffff; padding-top: 40px; width: 60%; margin-left: auto; margin-right: auto;"></div>
+
+<section id="lehrplaene-sektion">
+    <style>
+        #lehrplaene-sektion {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1100px;
+            margin: 0 auto 80px auto;
+            color: #333;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            line-height: 1.3;
+        }
+
+        /* Das Grid für die Gesetze */
+        .law-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .law-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover-Effekt: Karte wird grün und hebt sich ab */
+        .law-card:hover {
+            transform: translateY(-5px);
+            background: #ffffff;
+            border-color: #28a745; /* Dein Grün */
+            box-shadow: 0 12px 25px rgba(40, 167, 69, 0.15);
+        }
+
+        .law-card h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .law-card .law-desc {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .law-card .link-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #007bff; /* Dein Blau */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .law-card .link-label::after {
+            content: ' →';
+            margin-left: 5px;
+            transition: margin-left 0.3s;
+        }
+
+        .law-card:hover .link-label::after {
+            margin-left: 10px;
+        }
+
+        /* Responsive Anpassung */
+        @media (max-width: 600px) {
+            .law-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+
+    <h2 class="section-title">Detaillierte Informationen: <br>Gesetzgebungen der Bundesländer</h2>
+
+    <div class="law-grid">
+        <a href="https://www.landesrecht-bw.de/bsbw/document/jlr-LeistBeurtGrSchulVBWrahmen" target="_blank" class="law-card">
+            <div>
+                <h4>Baden-Württemberg</h4>
+                <p class="law-desc">Leistungsbeurteilung in der Grundschule</p>
+            </div>
+            <span class="link-label">Zum Schulgesetz</span>
+        </a>
+
+        <a href="https://www.gesetze-bayern.de/Content/Document/BayVSO-G4" target="_blank" class="law-card">
+            <div>
+                <h4>Bayern</h4>
+                <p class="law-desc">Schulordnung für Grundschulen</p>
+            </div>
+            <span class="link-label">Zur Schulordnung</span>
+        </a>
+
+        <a href="https://gesetze.berlin.de/bsbe/document/jlr-GrSchulVBErahmen" target="_blank" class="law-card">
+            <div>
+                <h4>Berlin</h4>
+                <p class="law-desc">Grundschulverordnung</p>
+            </div>
+            <span class="link-label">Zur Verordnung</span>
+        </a>
+
+        <a href="https://bravors.brandenburg.de/verordnungen/gv#10" target="_blank" class="law-card">
+            <div>
+                <h4>Brandenburg</h4>
+                <p class="law-desc">Bildungsgang der Grundschule</p>
+            </div>
+            <span class="link-label">Zur Verordnung</span>
+        </a>
+
+        <a href="https://www.transparenz.bremen.de/metainformationen/verordnung-fuer-zeugnisse-und-lernentwicklungsberichte-und-ueber-die-abschluesse-an-oeffentlichen-schulen-zeugnisordnung-vom-14-juli-1997-72342?asl=bremen203_tpgesetz.c.55340.de&template=20_gp_ifg_meta_detail_d&ts=MTczNjE3OTYzOA%3D%3D" target="_blank" class="law-card">
+            <div>
+                <h4>Bremen</h4>
+                <p class="law-desc">Zeugnis- und Lernentwicklungsberichte</p>
+            </div>
+            <span class="link-label">Zum Schulgesetz</span>
+        </a>
+
+        <a href="https://www.landesrecht-hamburg.de/bsha/document/jlr-Grd_StTSchulGymAPOHArahmen" target="_blank" class="law-card">
+            <div>
+                <h4>Hamburg</h4>
+                <p class="law-desc">Ausbildungs- und Prüfungsordnung</p>
+            </div>
+            <span class="link-label">Zum Schulgesetz</span>
+        </a>
+
+        <a href="https://www.rv.hessenrecht.hessen.de/bshe/document/hevr-SchulVerhGVHE2011V4IVZ" target="_blank" class="law-card">
+            <div>
+                <h4>Hessen</h4>
+                <p class="law-desc">Verordnung zur Gestaltung des Schulverhältnisses</p>
+            </div>
+            <span class="link-label">Zum Schulgesetz</span>
+        </a>
+
+        <a href="https://www.landesrecht-mv.de/bsmv/document/jlr-SchulLeistBewVMVV10P11a" target="_blank" class="law-card">
+            <div>
+                <h4>Mecklenburg-Vorpommern</h4>
+                <p class="law-desc">Verordnung zur einheitlichen Leistungsbewertung</p>
+            </div>
+            <span class="link-label">Zur Verordnung</span>
+        </a>
+
+        <a href="https://voris.wolterskluwer-online.de/browse/document/260c3a23-47f5-365f-985b-89b0b40968d3" target="_blank" class="law-card">
+            <div>
+                <h4>Niedersachsen</h4>
+                <p class="law-desc">Leistungsbewertung und Zeugnisse/Zensuren</p>
+            </div>
+            <span class="link-label">Zur Info</span>
+        </a>
+
+        <a href="https://bass.schule.nrw/6043.htm#1-1p48" target="_blank" class="law-card">
+            <div>
+                <h4>Nordrhein-Westfalen</h4>
+                <p class="law-desc">Ausbildungsordnung Grundschule (§ 5)</p>
+            </div>
+            <span class="link-label">Zum Schulgesetz</span>
+        </a>
+
+        <a href="https://bildung.rlp.de/fileadmin/user_upload/grundschule.bildung.rlp.de/Rechtsgrundlagen/Schulordnung_fuer_die_oeffentlichen_Grundschulen-2024.pdf" target="_blank" class="law-card">
+            <div>
+                <h4>Rheinland-Pfalz</h4>
+                <p class="law-desc">Schulordnung öffentliche Grundschulen</p>
+            </div>
+            <span class="link-label">Zur Schulordnung</span>
+        </a>
+
+        <a href="https://www.saarland.de/SharedDocs/Downloads/DE/mbk/Bildungsserver/allgemeine-informationen/erlass_leistungbewert_2024.pdf?__blob=publicationFile&v=4" target="_blank" class="law-card">
+            <div>
+                <h4>Saarland</h4>
+                <p class="law-desc">Erlass zur Leistungsbewertung</p>
+            </div>
+            <span class="link-label">Zum Erlass</span>
+        </a>
+
+        <a href="https://www.revosax.sachsen.de/vorschrift/3886-Schulordnung-Grundschulen#abs5" target="_blank" class="law-card">
+            <div>
+                <h4>Sachsen</h4>
+                <p class="law-desc">Schulordnung Grundschulen (§ 5)</p>
+            </div>
+            <span class="link-label">Zur Schulordnung</span>
+        </a>
+
+        <a href="https://www.landesrecht.sachsen-anhalt.de/bsst/document/VVST-VVST000010260" target="_blank" class="law-card">
+            <div>
+                <h4>Sachsen-Anhalt</h4>
+                <p class="law-desc">Runderlass des Kultusministeriums</p>
+            </div>
+            <span class="link-label">Zum Erlass</span>
+        </a>
+
+        <a href="https://www.gesetze-rechtsprechung.sh.juris.de/bssh/document/jlr-GrSchulVSHV2P6" target="_blank" class="law-card">
+            <div>
+                <h4>Schleswig-Holstein</h4>
+                <p class="law-desc">Landesverordnung über Grundschulen</p>
+            </div>
+            <span class="link-label">Zur Verordnung</span>
+        </a>
+
+        <a href="https://landesrecht.thueringen.de/bsth/document/jlr-SchulOTH1994V8P59" target="_blank" class="law-card">
+            <div>
+                <h4>Thüringen</h4>
+                <p class="law-desc">Schulordnung für die Grundschule</p>
+            </div>
+            <span class="link-label">Zur Schulordnung</span>
+        </a>
+    </div>
+</section>
+
+
+            
+
+
+
+
+
+
+            
             
 <div id="feedback" class="page-section">
     <h1>Eure Meinung zählt! 📝</h1>
