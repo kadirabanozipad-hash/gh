@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Die 16 Bundesländer</title>
+    <title>Der Flicketeppich der Bundesländer</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -718,12 +718,6 @@
             <button class="quiz-btn" onclick="checkQuiz(this, false)">Berlin</button>
         </div>
 
-        <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>2. Welches Bundesland hat in den Klassen 1-3 offiziell keine Ziffernnoten?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Sachsen</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Baden-Württemberg</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Hessen</button>
-        </div>
 
         <div class="quiz-container" style="margin-bottom: 30px;">
             <p style="font-size: 1.1em;"><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
@@ -732,10 +726,61 @@
             <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
         </div>
 
+                <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
+        </div>
+
+                <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
+        </div>
+
+                <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
+        </div>
+
+                <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
+        </div>
+
+                <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
+        </div>
+
+                <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
+        </div>
+
+                <div class="quiz-container" style="margin-bottom: 30px;">
+            <p style="font-size: 1.1em;"><strong>3. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
+            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
+        </div>
+
+        
+
         <div class="bottom-score-banner" id="score-banner">
             <div style="flex: 1;">
                 <span style="display: block; font-size: 0.8em; text-transform: uppercase; opacity: 0.8;">Dein Score</span>
-                <span id="score-display" style="font-size: 2em; font-weight: bold; color: #2ecc71;"><span id="score">0</span> / 3</span>
+                <span id="score-display" style="font-size: 2em; font-weight: bold; color: #2ecc71;"><span id="score">0</span> / 10</span>
             </div>
             <div id="quiz-status" style="flex: 2; font-size: 1.2em; font-weight: 500; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 20px;">
                 Viel Glück! 🍀
@@ -795,7 +840,7 @@
                 startConfetti();
                 setTimeout(stopConfetti, 5000); // Stoppt automatisch nach 5 Sek
             } else {
-                status.innerText = "Geschafft! 😊";
+                status.innerText = "Bleib dran 😊";
             }
         }
     }
