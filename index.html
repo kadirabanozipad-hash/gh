@@ -743,22 +743,43 @@ details[open]:hover {
 
             
          
-<div>
+<section id="vergleichs-sektion" style="max-width: 900px; margin: 40px auto; font-family: sans-serif;">
+    <h2 style="text-align: center;">Bundesländer im Vergleich</h2>
+    
+    <div class="button-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px;">
+        <button onclick="updateAnsicht('kueste', 'Küstenländer', 'Diese Länder grenzen direkt an Nord- oder Ostsee.')">Küsten</button>
+        <button onclick="updateAnsicht('noten', 'Schulnoten', 'In diesen Bundesländern werden in der 1. und 2. Klasse keine Noten vergeben.')">Keine Noten (Kl. 1/2)</button>
+        <button onclick="updateAnsicht('stadt', 'Stadtstaaten', 'Besonderheiten der Bundesländer Berlin, Hamburg und Bremen.')">Stadtstaaten</button>
+    </div>
 
-        <hr> 
-        <section id="merkmale-bereich" style="margin-top: 40px; text-align: center;">
-            <h2>Gemeinsamkeiten</h2>
-            <div class="button-container">
-                <button onclick="zeigeBild('kueste')">Küstenländer</button>
-                <button onclick="zeigeBild('stadtstaaten')">Stadtstaaten</button>
-                <button onclick="zeigeBild('neue-laender')">Kein Söder</button>
-                <button onclick="zeigeBild('alpen')">Keine Noten Klasse 1 & 2</button>
-            </div>
-            <div id="bild-anzeige" style="margin-top: 20px; min-height: 200px;">
-                <p id="platzhalter-text" style="color: #888;">Bitte wähle ein Merkmal aus.</p>
-                <img id="merkmal-bild" src="" alt="Landkarte" style="display: none; max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 10px;">
-            </div>
-        </section>
+    <div id="details-box" style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid #0055a5; margin-bottom: 20px; display: none;">
+        <h3 id="detail-titel" style="margin-top: 0;"></h3>
+        <p id="detail-text"></p>
+    </div>
+
+    <div style="text-align: center;">
+        <img id="merkmal-bild" src="" alt="Landkarte" style="display: none; width: 100%; max-width: 500px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    </div>
+</section>
+
+<script>
+function updateAnsicht(id, titel, beschreibung) {
+    // Bild aktualisieren
+    const img = document.getElementById('merkmal-bild');
+    img.src = 'pfad/zu/deinen/bildern/' + id + '.png'; 
+    img.style.display = 'inline-block';
+
+    // Text aktualisieren
+    const infoBox = document.getElementById('details-box');
+    document.getElementById('detail-titel').innerText = titel;
+    document.getElementById('detail-text').innerText = beschreibung;
+    infoBox.style.display = 'block';
+}
+</script>
+
+
+
+            
 
         <hr style="margin-top: 50px; border: 0; border-top: 2px solid #eee;">
 
