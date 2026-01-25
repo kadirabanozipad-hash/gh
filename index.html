@@ -152,18 +152,89 @@ details[open]:hover {
     <div id="inhalt" class="page-section active">
         <h1>Deutschlands Flickenteppich der Leistungsbewertung</h1>
 
-<div style="background: rgba(255, 255, 255, 0.5); padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; border: 1px dashed #2c3e50;">
-    <p style="margin-top: 0; font-weight: bold;">Hier den Podcast anhören:</p>
+<div class="podcast-container">
+    <div class="podcast-badge">NEU 🎧</div>
+    <p style="margin-top: 10px; font-weight: bold; color: #2c3e50;">Hier den Podcast anhören:</p>
     
+    <div class="sound-wave">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
     <audio controls style="width: 100%; max-width: 400px;">
         <source src="https://raw.githubusercontent.com/kadirabanozipad-hash/gh/main/Podcastt.mp3" type="audio/mpeg">
         Dein Browser unterstützt das Audio-Element nicht.
     </audio>
-    
-    <p style="font-size: 0.8em; margin-bottom: 0;">
-        <a href="https://raw.githubusercontent.com/USERNAME/REPO-NAME/main/Podcastt.mp3" target="_blank" style="color: #2c3e50;">Datei herunterladen</a>
-    </p>
 </div>
+
+<style>
+/* Der Container mit dem hellblauen Design und Pulse-Effekt */
+.podcast-container {
+    background-color: #e3f2fd; /* Hellblau passend zum Nav-Active-Status */
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0;
+    text-align: center;
+    border: 2px solid #3498db;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+    position: relative;
+    
+    /* Der Pulse-Effekt (sanftes Aufploppen) */
+    animation: pulse-light 3s infinite ease-in-out;
+}
+
+.podcast-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: #3498db;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Die Sound-Welle Animation */
+.sound-wave {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 30px;
+    gap: 4px;
+    margin-bottom: 15px;
+}
+
+.sound-wave span {
+    width: 4px;
+    background: #3498db;
+    border-radius: 2px;
+    animation: wave-anim 1.2s infinite ease-in-out;
+}
+
+/* Verschiedene Höhen für die Wellen-Balken */
+.sound-wave span:nth-child(1) { height: 10px; animation-delay: 0.1s; }
+.sound-wave span:nth-child(2) { height: 25px; animation-delay: 0.3s; }
+.sound-wave span:nth-child(3) { height: 15px; animation-delay: 0.6s; }
+.sound-wave span:nth-child(4) { height: 28px; animation-delay: 0.2s; }
+.sound-wave span:nth-child(5) { height: 12px; animation-delay: 0.4s; }
+
+@keyframes wave-anim {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.5); }
+}
+
+@keyframes pulse-light {
+    0% { transform: scale(1); box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2); }
+    50% { transform: scale(1.02); box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4); }
+    100% { transform: scale(1); box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2); }
+}
+
+/* Audio-Player Styling-Anpassung */
+audio {
+    filter: sepia(20%) saturate(70%) hue-rotate(160deg); /* Passt den Standard-Player farblich leicht an das Blau an */
+}
+</style>
 
         
         <p style="text-align: center;">Klicke auf ein Bundesland, um mehr zu erfahren:</p>
@@ -578,7 +649,6 @@ details[open]:hover {
     
     <div style="padding: 20px; background-color: #ffffff;">
         <p style="margin-bottom: 25px; line-height: 1.6; color: #555; text-align: center;">
-        In Saarland
         </p>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; position: relative;">
