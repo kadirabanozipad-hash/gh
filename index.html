@@ -892,33 +892,41 @@ details[open]:hover {
 
 <script>
     function showFact(btn, imgNumber, title, desc) {
-        // UI zurücksetzen
+        // 1. Alle aktiven Klassen und den "Neu"-Punkt entfernen
         document.querySelectorAll('.category-item').forEach(item => {
             item.classList.remove('active');
-            item.classList.remove('new'); // Entfernt den pulsierenden Punkt beim ersten Klick
+            item.classList.remove('new');
         });
+        
+        // 2. Den geklickten Button markieren
         btn.classList.add('active');
 
-        // Text-Inhalte füllen
+        // 3. Texte im Inhaltsbereich füllen
         document.getElementById('fact-title').innerText = title;
         document.getElementById('fact-description').innerText = desc;
 
-        // Bild-Quelle setzen (Hier wird country(1).svg etc. generiert)
-        // Falls die Bilder in einem Ordner liegen, z.B. 'img/country(' + imgNumber + ').svg'
+        // 4. BILD-PFAD KORREKTUR FÜR GITHUB
+        // Wir nutzen './', um sicherzustellen, dass er im Hauptverzeichnis sucht
         const imgElement = document.getElementById('fact-image');
-        imgElement.src = 'country(1).svg';
+        const fileName = './country(' + imgNumber + ').svg';
+        
+        // Kleiner Trick: Wir hängen einen Zeitstempel an, damit GitHub nicht das alte Bild aus dem Cache zeigt
+        imgElement.src = fileName + '?v=' + new Date().getTime();
 
-        // Aufblock-Effekt aktivieren
+        // 5. Inhaltsbox einblenden
         const contentBox = document.getElementById('content-box');
         contentBox.classList.add('visible');
 
-        // Sanftes Scrollen
+        // 6. Sanftes Scrollen
         setTimeout(() => {
-            document.getElementById('display-anchor').scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-            });
-        }, 100);
+            const anchor = document.getElementById('display-anchor');
+            if(anchor) {
+                anchor.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        }, 150);
     }
 </script>
             
