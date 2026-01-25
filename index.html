@@ -154,34 +154,155 @@ details[open]:hover {
 
 
 
-<div class="podcast-container" id="mainPodcastCart">
-    <div class="podcast-badge">NEU 🎧</div>
-    <p style="margin-top: 10px; font-weight: bold; color: #2c3e50;">Hier den Podcast anhören:</p>
-    
-    <div class="sound-wave" id="wave">
-        <span></span><span></span><span></span><span></span><span></span>
+<div id="podcast-wrapper">
+    <div class="podcast-container" id="mainPodcastCart">
+        <div class="podcast-badge">NEU 🎧</div>
+        <p style="margin-top: 10px; font-weight: bold; color: #2c3e50; font-family: sans-serif;">Hier den Podcast anhören:</p>
+        
+        <div class="sound-wave" id="wave">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <audio id="podcastAudio" controls style="width: 100%; max-width: 400px; margin: 0 auto; display: block;">
+            <source src="https://raw.githubusercontent.com/kadirabanozipad-hash/gh/main/Podcastt.mp3" type="audio/mpeg">
+            Dein Browser unterstützt das Audio-Element nicht.
+        </audio>
     </div>
 
-    <audio id="podcastAudio" controls style="width: 100%; max-width: 400px;">
-        <source src="https://raw.githubusercontent.com/kadirabanozipad-hash/gh/main/Podcastt.mp3" type="audio/mpeg">
-        Dein Browser unterstützt das Audio-Element nicht.
-    </audio>
-</div>
+    <div id="stickyPlayer" class="sticky-audio-bar">
+        <div class="sticky-info">
+            <span class="live-dot"></span> Podcast läuft...
+        </div>
+        
+        <div class="sticky-controls">
+            <button onclick="rewindAudio()" type="button">⏪</button>
+            <button id="stickyPlayPause" onclick="togglePlayPause()" type="button" style="min-width: 45px;">⏸</button>
+            <button onclick="forwardAudio()" type="button">⏩</button>
+        </div>
 
-<div id="stickyPlayer" class="sticky-audio-bar">
-    <div class="sticky-info">
-        <span class="live-dot"></span> Podcast läuft...
-    </div>
-    
-    <div class="sticky-controls">
-        <button onclick="rewindAudio()" title="10 Sek zurück">⏪</button>
-        <button id="stickyPlayPause" onclick="togglePlayPause()">⏸</button>
-        <button onclick="forwardAudio()" title="10 Sek vor">⏩</button>
+        <div class="sticky-progress-container" onclick="seekAudio(event)">
+            <div id="stickyProgressBar" class="sticky-progress-bar"></div>
+        </div>
     </div>
 
-    <div class="sticky-progress-container" onclick="seekAudio(event)">
-        <div id="stickyProgressBar" class="sticky-progress-bar"></div>
-    </div>
+    <style>
+        /* Design für die Karte oben */
+        .podcast-container {
+            background-color: #e3f2fd !important;
+            padding: 25px !important;
+            border-radius: 15px !important;
+            margin: 30px 0 !important;
+            text-align: center !important;
+            border: 2px solid #3498db !important;
+            position: relative !important;
+            display: block !important;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .pulse-animation {
+            animation: pulse-light 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse-light {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .podcast-badge {
+            position: absolute; top: -12px; right: 20px;
+            background: #3498db; color: white; padding: 4px 12px;
+            border-radius: 20px; font-size: 0.8em; font-weight: bold;
+            font-family: sans-serif;
+        }
+
+        /* Die Sticky-Leiste unten */
+        .sticky-audio-bar {
+            position: fixed;
+            bottom: -100px;
+            left: 0; right: 0; height: 80px;
+            background: #2c3e50 !important;
+            display: flex; justify-content: center; align-items: center;
+            gap: 15px; padding: 0 20px; z-index: 99999;
+            transition: bottom 0.4s ease-in-out;
+            border-top: 4px solid #3498db;
+            color: white !important;
+            font-family: sans-serif;
+        }
+
+        .sticky-audio-bar.show { bottom: 0 !important; }
+
+        .sticky-controls button {
+            background: #3498db; border: none; color: white;
+            padding: 10px; border-radius: 5px; cursor: pointer;
+            font-size: 1.2em; line-height: 1;
+        }
+
+        .sticky-progress-container {
+            width: 120px; height: 10px; background: rgba(255,255,255,0.3);
+            border-radius: 5px; cursor: pointer; overflow: hidden;
+        }
+
+        .sticky-progress-bar {
+            width: 0%; height: 100%; background: #3498db;
+        }
+
+        .sound-wave { display: flex; justify-content: center; align-items: flex-end; height: 30px; gap: 4px; margin-bottom: 15px; }
+        .sound-wave span { width: 4px; background: #3498db; border-radius: 2px; animation: wave-anim 1.2s infinite ease-in-out; }
+        @keyframes wave-anim { 0%, 100% { height: 10px; } 50% { height: 25px; } }
+
+        .live-dot { height: 10px; width: 10px; background-color: #2ecc71; border-radius: 50%; display: inline-block; margin-right: 8px; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    </style>
+
+    <script>
+        (function() {
+            const mainAudio = document.getElementById('podcastAudio');
+            const podcastCart = document.getElementById('mainPodcastCart');
+            const stickyPlayer = document.getElementById('stickyPlayer');
+            const stickyPlayPause = document.getElementById('stickyPlayPause');
+            const stickyProgressBar = document.getElementById('stickyProgressBar');
+
+            podcastCart.classList.add('pulse-animation');
+
+            window.togglePlayPause = function() {
+                if (mainAudio.paused) { mainAudio.play(); } else { mainAudio.pause(); }
+            };
+
+            window.rewindAudio = function() { mainAudio.currentTime -= 10; };
+            window.forwardAudio = function() { mainAudio.currentTime += 10; };
+
+            window.seekAudio = function(event) {
+                const rect = event.currentTarget.getBoundingClientRect();
+                const percent = (event.clientX - rect.left) / rect.width;
+                mainAudio.currentTime = percent * mainAudio.duration;
+            };
+
+            mainAudio.onplay = () => {
+                podcastCart.classList.remove('pulse-animation');
+                stickyPlayPause.innerText = "⏸";
+            };
+
+            mainAudio.onpause = () => {
+                stickyPlayPause.innerText = "▶";
+            };
+
+            mainAudio.addEventListener('timeupdate', () => {
+                const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
+                stickyProgressBar.style.width = progress + "%";
+            });
+
+            window.addEventListener('scroll', () => {
+                const rect = podcastCart.getBoundingClientRect();
+                // Wenn die Karte oben verschwindet UND Audio läuft, zeige Leiste
+                if (rect.bottom < 0 && !mainAudio.paused) {
+                    stickyPlayer.classList.add('show');
+                } else {
+                    stickyPlayer.classList.remove('show');
+                }
+            });
+        })();
+    </script>
 </div>
 
 
@@ -1156,119 +1277,6 @@ document.querySelectorAll('details').forEach((targetDetail) => {
     });
 });
 
-
-
-<style>
-/* 1. Design für den Karten-Player oben */
-.podcast-container {
-    background-color: #e3f2fd;
-    padding: 25px;
-    border-radius: 15px;
-    margin: 30px 0;
-    text-align: center;
-    border: 2px solid #3498db;
-    position: relative;
-    transition: all 0.5s ease;
-}
-
-.pulse-animation {
-    animation: pulse-light 3s infinite ease-in-out;
-}
-
-@keyframes pulse-light {
-    0% { transform: scale(1); box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2); }
-    50% { transform: scale(1.02); box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4); }
-    100% { transform: scale(1); box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2); }
-}
-
-/* 2. Design für die Sticky-Leiste unten */
-.sticky-audio-bar {
-    position: fixed;
-    bottom: -100px; /* Startet versteckt */
-    left: 0; right: 0; height: 70px;
-    background: rgba(44, 62, 80, 0.95);
-    backdrop-filter: blur(10px);
-    display: flex; justify-content: center; align-items: center;
-    gap: 20px; padding: 0 20px; z-index: 2000;
-    transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-top: 3px solid #3498db; color: white;
-}
-
-.sticky-audio-bar.show { bottom: 0; }
-
-.sticky-controls button {
-    background: #3498db; border: none; color: white;
-    padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 1.2em;
-}
-
-.sticky-progress-container {
-    width: 150px; height: 8px; background: rgba(255,255,255,0.2);
-    border-radius: 4px; cursor: pointer; position: relative;
-}
-
-.sticky-progress-bar {
-    width: 0%; height: 100%; background: #3498db; border-radius: 4px;
-}
-
-/* Sound-Wellen & Live-Punkt */
-.sound-wave span { width: 4px; background: #3498db; border-radius: 2px; animation: wave-anim 1.2s infinite ease-in-out; display: inline-block; margin: 0 2px; }
-@keyframes wave-anim { 0%, 100% { height: 10px; } 50% { height: 25px; } }
-
-.live-dot { height: 10px; width: 10px; background-color: #2ecc71; border-radius: 50%; display: inline-block; margin-right: 8px; animation: blink 1s infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-</style>
-
-<script>
-const mainAudio = document.getElementById('podcastAudio');
-const podcastCart = document.getElementById('mainPodcastCart');
-const stickyPlayer = document.getElementById('stickyPlayer');
-const stickyPlayPause = document.getElementById('stickyPlayPause');
-const stickyProgressBar = document.getElementById('stickyProgressBar');
-
-// Animation am Anfang starten
-podcastCart.classList.add('pulse-animation');
-
-// Fernsteuerung: Play/Pause
-function togglePlayPause() {
-    if (mainAudio.paused) { mainAudio.play(); } else { mainAudio.pause(); }
-}
-
-// Fernsteuerung: Spulen
-function rewindAudio() { mainAudio.currentTime -= 10; }
-function forwardAudio() { mainAudio.currentTime += 10; }
-
-// Balken anklicken zum Spulen
-function seekAudio(event) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const percent = (event.clientX - rect.left) / rect.width;
-    mainAudio.currentTime = percent * mainAudio.duration;
-}
-
-// Events überwachen
-mainAudio.onplay = () => {
-    podcastCart.classList.remove('pulse-animation');
-    stickyPlayPause.innerText = "⏸";
-};
-
-mainAudio.onpause = () => {
-    stickyPlayPause.innerText = "▶";
-};
-
-mainAudio.addEventListener('timeupdate', () => {
-    const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
-    stickyProgressBar.style.width = progress + "%";
-});
-
-// Scroll-Logik für die Sichtbarkeit der Leiste
-window.addEventListener('scroll', () => {
-    const rect = podcastCart.getBoundingClientRect();
-    if (rect.bottom < 0 && !mainAudio.paused) {
-        stickyPlayer.classList.add('show');
-    } else {
-        stickyPlayer.classList.remove('show');
-    }
-});
-</script>
 
 
 
