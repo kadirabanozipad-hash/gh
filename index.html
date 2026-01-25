@@ -761,28 +761,29 @@ details[open]:hover {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 15px;
             margin-bottom: 60px;
         }
 
         .category-item {
-            padding: 12px 25px;
+            padding: 12px 30px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             color: #666;
             border-radius: 50px;
             background: #ffffff;
             border: 1px solid rgba(0,0,0,0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         /* Hover-Zustand */
         .category-item:hover {
             color: #28a745;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.15);
             border-color: #28a745;
         }
 
@@ -791,7 +792,7 @@ details[open]:hover {
             color: #ffffff;
             background: #007bff;
             border-color: #007bff;
-            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.25);
             transform: scale(1.05);
         }
 
@@ -801,8 +802,8 @@ details[open]:hover {
             position: absolute;
             top: -2px;
             right: 5px;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: #28a745;
             border-radius: 50%;
             animation: pulse-green 2s infinite;
@@ -810,7 +811,7 @@ details[open]:hover {
 
         @keyframes pulse-green {
             0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(40, 167, 69, 0); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
             100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
         }
 
@@ -868,13 +869,13 @@ details[open]:hover {
         }
     </style>
 
-    <h2 class="headline-main">Gemeinsamkeiten in der Übersicht</h2>
+    <h2 class="headline-main">Der Flickenteppich der Bundesländer</h2>
 
     <nav class="category-nav">
-        <div class="category-item new" onclick="showFact(this, 1, 'Keine Noten', 'Auch wenn es viele unterschiede gibt. In einer Sache sind sich alle Bundesländer einig: Keine Ziffernoten in Klasse 1!')">Keine Noten</div>
-        <div class="category-item" onclick="showFact(this, 2, 'Stadtstaaten', 'Metropolen im Fokus: Berlin, Hamburg und Bremen sind pulsierende Städte und Bundesländer zugleich.')">Stadtstaaten</div>
-        <div class="category-item" onclick="showFact(this, 3, 'Kein Söder', 'Bayerische Grenzen: Diese Bundesländer zeigen alle Regionen Deutschlands außerhalb Bayerns.')">Kein Söder</div>
-        <div class="category-item" onclick="showFact(this, 4, 'Keine Noten Klasse 1 & 2', 'Lernen ohne Druck: In diesen Ländern gibt es in den ersten beiden Schuljahren Wortgutachten statt Ziffern.')">Keine Noten (Kl. 1/2)</div>
+        <div class="category-item new" onclick="showFact(this, 1, 'Klasse 1', 'Hier sehen Sie die Regelungen und Gemeinsamkeiten für das erste Schuljahr in den verschiedenen Bundesländern.')">Klasse 1</div>
+        <div class="category-item" onclick="showFact(this, 2, 'Klasse 2', 'Im zweiten Schuljahr gibt es deutliche Unterschiede in der Leistungsbewertung. Hier sind die Details.')">Klasse 2</div>
+        <div class="category-item" onclick="showFact(this, 3, 'Klasse 3', 'Die dritte Klasse markiert oft einen Umschwung in der Benotung. Diese Karte zeigt die aktuelle Lage.')">Klasse 3</div>
+        <div class="category-item" onclick="showFact(this, 4, 'Klasse 4', 'Das vierte Schuljahr und die Übergangsempfehlungen: So regeln es die Bundesländer im Vergleich.')">Klasse 4</div>
     </nav>
 
     <div id="display-anchor" class="scroll-target"></div>
@@ -892,32 +893,29 @@ details[open]:hover {
 
 <script>
     function showFact(btn, imgNumber, title, desc) {
-        // 1. Alle aktiven Klassen und den "Neu"-Punkt entfernen
+        // UI aktualisieren
         document.querySelectorAll('.category-item').forEach(item => {
             item.classList.remove('active');
             item.classList.remove('new');
         });
-        
-        // 2. Den geklickten Button markieren
         btn.classList.add('active');
 
-        // 3. Texte im Inhaltsbereich füllen
+        // Inhalte setzen
         document.getElementById('fact-title').innerText = title;
         document.getElementById('fact-description').innerText = desc;
 
-        // 4. BILD-PFAD KORREKTUR FÜR GITHUB
-        // Wir nutzen './', um sicherzustellen, dass er im Hauptverzeichnis sucht
+        // Bild-Pfad für GitHub (Punkt-Notation für aktuellen Ordner)
         const imgElement = document.getElementById('fact-image');
         const fileName = './country(' + imgNumber + ').svg';
         
-        // Kleiner Trick: Wir hängen einen Zeitstempel an, damit GitHub nicht das alte Bild aus dem Cache zeigt
+        // Cache-Buster hinzufügen, damit GitHub Änderungen sofort zeigt
         imgElement.src = fileName + '?v=' + new Date().getTime();
 
-        // 5. Inhaltsbox einblenden
+        // Animation auslösen
         const contentBox = document.getElementById('content-box');
         contentBox.classList.add('visible');
 
-        // 6. Sanftes Scrollen
+        // Sanftes Scrollen zum Inhaltsbereich
         setTimeout(() => {
             const anchor = document.getElementById('display-anchor');
             if(anchor) {
