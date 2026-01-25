@@ -745,7 +745,7 @@ details[open]:hover {
     <style>
         #bundesland-vergleich {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
             color: #333;
         }
@@ -755,95 +755,83 @@ details[open]:hover {
             color: #333;
             font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 40px;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
             margin-bottom: 50px;
         }
 
-        /* Die lebendige Kachel */
-        .feature-card {
-            background: #ffffff;
-            border: 1px solid rgba(0,0,0,0.05);
-            border-radius: 20px;
-            padding: 35px 20px;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        /* Die neue Segment-Navigation */
+        .category-nav {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            /* Sanfte Dauer-Animation für Mobile */
-            animation: gentle-breath 4s infinite ease-in-out;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 60px;
+            position: relative;
         }
 
-        /* Sanftes "Atmen" der Kacheln */
-        @keyframes gentle-breath {
-            0%, 100% { transform: scale(1); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-            50% { transform: scale(1.02); box-shadow: 0 15px 25px rgba(0,0,0,0.08); }
+        .category-item {
+            padding: 12px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #666;
+            border-radius: 50px; /* Pillen-Form */
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Stoppe Animation bei Interaktion oder wenn aktiv */
-        .feature-card:hover, .feature-card.active {
-            animation: none;
-        }
-
-        .feature-card span {
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: #444;
-        }
-
-        /* Kleiner visueller Hinweis (Pfeil nach unten) */
-        .feature-card::after {
-            content: '▼';
-            font-size: 10px;
-            color: #ccc;
-            margin-top: 10px;
-            transition: color 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            border-color: #28a745;
-            box-shadow: 0 20px 40px rgba(40, 167, 69, 0.12);
-        }
-
-        .feature-card:hover::after { color: #28a745; }
-
-        /* Aktiver Zustand */
-        .feature-card.active {
+        /* Hover-Zustand: Subtiles Leuchten */
+        .category-item:hover {
+            color: #28a745;
             background: #ffffff;
-            border: 2px solid #007bff;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.1);
         }
-        
-        .feature-card.active span { color: #007bff; }
-        .feature-card.active::after { content: '✓'; color: #007bff; font-weight: bold; }
 
-        /* Inhaltsbereich */
+        /* Aktiver Zustand: Die "Pille" wird farbig */
+        .category-item.active {
+            color: #ffffff;
+            background: #007bff;
+            border-color: #007bff;
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Kleiner pulsierender Punkt als "Neu"-Signal (Animation) */
+        .category-item.new::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            width: 6px;
+            height: 6px;
+            background: #28a745;
+            border-radius: 50%;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+
+        /* Inhaltsbereich bleibt wie gewünscht */
         #content-box {
             display: grid;
             grid-template-columns: 1.1fr 1fr;
             gap: 40px;
             background: #ffffff;
-            border-radius: 24px;
-            padding: 40px;
-            border: 1px solid #eee;
+            border-radius: 30px;
+            padding: 50px;
+            border: 1px solid rgba(0,0,0,0.05);
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             visibility: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
         }
 
         #content-box.visible {
@@ -853,50 +841,47 @@ details[open]:hover {
         }
 
         @media (max-width: 850px) {
-            #content-box { grid-template-columns: 1fr; }
-            .feature-card { animation-duration: 5s; } /* Langsamer auf Mobilgeräten */
+            #content-box { grid-template-columns: 1fr; padding: 30px; }
+            .category-nav { flex-direction: column; align-items: stretch; }
+            .category-item { text-align: center; }
         }
 
         .text-content h3 {
             color: #007bff;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-top: 0;
-            border-left: 5px solid #28a745;
-            padding-left: 15px;
+            margin-bottom: 20px;
         }
 
         .text-content p {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: #333;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #444;
         }
 
         .map-img {
             max-width: 100%;
             height: auto;
-            border-radius: 15px;
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
+            border-radius: 20px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
+        }
+
+        .scroll-target {
+            height: 1px;
+            margin-top: -20px;
         }
     </style>
 
     <h2 class="headline-main">Der Flickenteppich der Bundesländer</h2>
 
-    <div class="card-grid">
-        <div class="feature-card" onclick="showFact(this, 'kueste', 'Küstenländer', 'Diese Bundesländer prägen den Norden Deutschlands mit ihrem direkten Zugang zu Nord- und Ostsee.')">
-            <span>Küstenländer</span>
-        </div>
-        <div class="feature-card" onclick="showFact(this, 'stadtstaaten', 'Stadtstaaten', 'Berlin, Hamburg und Bremen sind pulsierende Metropolen mit dem rechtlichen Status eines Bundeslandes.')">
-            <span>Stadtstaaten</span>
-        </div>
-        <div class="feature-card" onclick="showFact(this, 'neue-laender', 'Kein Söder', 'Bayerische Grenzen: Hier zeigen wir alle Bundesländer, die nicht unter bayerischer Flagge segeln.')">
-            <span>Kein Söder</span>
-        </div>
-        <div class="feature-card" onclick="showFact(this, 'noten', 'Keine Noten Klasse 1 & 2', 'Individuelle Förderung statt Notendruck: In diesen Ländern gibt es zu Beginn der Grundschule Wortgutachten.')">
-            <span>Keine Noten (Kl. 1/2)</span>
-        </div>
-    </div>
+    <nav class="category-nav">
+        <div class="category-item new" onclick="showFact(this, 'kueste', 'Küstenländer', 'Maritime Vielfalt: Diese Bundesländer haben direkten Zugang zu Nord- oder Ostsee.')">Küstenländer</div>
+        <div class="category-item" onclick="showFact(this, 'stadtstaaten', 'Stadtstaaten', 'Kompakte Power: Berlin, Hamburg und Bremen vereinen Stadtverwaltung und Landesrecht.')">Stadtstaaten</div>
+        <div class="category-item" onclick="showFact(this, 'neue-laender', 'Kein Söder', 'Bayerische Grenzen: Diese Auswahl zeigt alle Bundesländer, in denen die CSU nicht regiert.')">Kein Söder</div>
+        <div class="category-item" onclick="showFact(this, 'noten', 'Keine Noten Klasse 1 & 2', 'Lernen ohne Druck: In diesen Ländern verzichtet man in der Schuleingangsphase auf Ziffernnoten.')">Keine Noten (Kl. 1/2)</div>
+    </nav>
 
-    <div id="display-anchor" style="height: 1px;"></div>
+    <div id="display-anchor" class="scroll-target"></div>
 
     <div id="content-box">
         <div class="text-content">
@@ -911,23 +896,30 @@ details[open]:hover {
 
 <script>
     function showFact(btn, imgKey, title, desc) {
-        document.querySelectorAll('.feature-card').forEach(c => c.classList.remove('active'));
+        // Nav-Items resetten
+        document.querySelectorAll('.category-item').forEach(c => {
+            c.classList.remove('active');
+            // Punkt entfernen, wenn einmal geklickt
+            c.classList.remove('new');
+        });
         btn.classList.add('active');
 
+        // Inhalt setzen
         document.getElementById('fact-title').innerText = title;
         document.getElementById('fact-description').innerText = desc;
         document.getElementById('fact-image').src = 'DEIN_PFAD/' + imgKey + '.png';
 
+        // Anzeigen
         const contentBox = document.getElementById('content-box');
         contentBox.classList.add('visible');
 
-        // Verzögertes Scrollen für bessere Wahrnehmung der Animation
+        // Scrollen
         setTimeout(() => {
             document.getElementById('display-anchor').scrollIntoView({ 
                 behavior: 'smooth', 
                 block: 'start' 
             });
-        }, 150);
+        }, 100);
     }
 </script>
             
