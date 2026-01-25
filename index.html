@@ -114,6 +114,28 @@ details .content, details > div {
 }
 
 
+/* Der Hover-Effekt für die Bundesländer-Karten */
+details {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s;
+    cursor: pointer;
+}
+
+/* Wenn man mit der Maus drüberfährt (Hover) */
+details:hover {
+    transform: scale(1.02); /* Vergrößert das Element um 2% */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* Erzeugt einen leichten Schatten-Effekt */
+    background-color: #fdfdfd; /* Macht den Hintergrund einen Tick heller */
+    z-index: 10; /* Stellt sicher, dass das schwebende Element über den anderen liegt */
+}
+
+/* Wenn das Bundesland bereits offen ist, soll es nicht mehr wackeln */
+details[open]:hover {
+    transform: scale(1); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+        
+
         
     </style>
 </head>
