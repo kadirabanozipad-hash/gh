@@ -1192,55 +1192,53 @@ details[open]:hover {
 
 
 
-<div id="feedback" class="page-section" style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 50px 20px; background-color: #f0f2f5;">
+<div id="feedback" class="page-section" style="padding: 20px; font-family: 'Segoe UI', Roboto, sans-serif;">
     
-    <div style="background: #2c3e50; padding: 45px; border-radius: 24px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.2); max-width: 550px; margin: 0 auto; color: #ffffff;">
+    <div style="background: rgba(44, 62, 80, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 40px; border-radius: 30px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); max-width: 500px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.1); color: #ffffff;">
         
-        <h1 style="margin-top: 0; color: #ffffff; font-size: 2em; margin-bottom: 15px;">Eure Meinung zählt! 📝</h1>
-        
-        <p style="color: #bdc3c7; margin-bottom: 35px; line-height: 1.6; font-size: 1.05em;">
-            Haben dir die Infos zum Flickenteppich geholfen? Was können wir verbessern? <br>
-            <span style="color: #28a745;">Wir freuen uns auf deine Nachricht!</span>
+        <div style="font-size: 3em; margin-bottom: 10px;">💬</div>
+        <h2 style="margin: 0 0 10px 0; color: #ffffff; font-size: 1.8em; letter-spacing: -0.5px;">Kurzes Feedback?</h2>
+        <p style="color: #bdc3c7; margin-bottom: 30px; font-size: 0.95em; line-height: 1.5;">
+            Deine Meinung hilft uns, den Flickenteppich noch besser zu machen. <br>
+            <span style="color: #28a745; font-weight: bold;">Dauert nur 30 Sekunden!</span>
         </p>
         
         <form action="https://formspree.io/f/xlgjzvjl" method="POST" id="feedback-form">
-            <div style="text-align: left; margin-bottom: 22px;">
-                <label style="font-weight: 500; font-size: 0.9em; color: #007bff; display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Deine E-Mail (optional):</label>
-                <input type="email" name="email" placeholder="beispiel@mail.de" 
-                    style="width: 100%; padding: 16px; border: 2px solid #3e4f5f; border-radius: 14px; box-sizing: border-box; outline: none; transition: all 0.3s ease; font-size: 1em; background: #34495e; color: white;"
-                    onfocus="this.style.borderColor='#007bff'; this.style.background='#3d566e';"
-                    onblur="this.style.borderColor='#3e4f5f'; this.style.background='#34495e';">
+            <div style="text-align: left; margin-bottom: 18px;">
+                <input type="email" name="email" placeholder="Deine E-Mail (optional)" 
+                    style="width: 100%; padding: 15px; border: 2px solid rgba(255,255,255,0.1); border-radius: 15px; box-sizing: border-box; outline: none; transition: all 0.3s ease; font-size: 1em; background: rgba(255,255,255,0.05); color: white;"
+                    onfocus="this.style.borderColor='#007bff'; this.style.background='rgba(255,255,255,0.1)';"
+                    onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.background='rgba(255,255,255,0.05)';">
             </div>
             
-            <div style="text-align: left; margin-bottom: 30px;">
-                <label style="font-weight: 500; font-size: 0.9em; color: #007bff; display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Deine Nachricht:</label>
-                <textarea name="nachricht" required placeholder="Was möchtest du uns sagen?" 
-                    style="width: 100%; height: 150px; border: 2px solid #3e4f5f; border-radius: 14px; padding: 16px; box-sizing: border-box; outline: none; transition: all 0.3s ease; resize: vertical; font-size: 1em; font-family: inherit; background: #34495e; color: white;"
-                    onfocus="this.style.borderColor='#007bff'; this.style.background='#3d566e';"
-                    onblur="this.style.borderColor='#3e4f5f'; this.style.background='#34495e';"></textarea>
+            <div style="text-align: left; margin-bottom: 25px;">
+                <textarea name="nachricht" required placeholder="Was brennt dir auf der Seele?" 
+                    style="width: 100%; height: 120px; border: 2px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 15px; box-sizing: border-box; outline: none; transition: all 0.3s ease; resize: none; font-size: 1em; font-family: inherit; background: rgba(255,255,255,0.05); color: white;"
+                    onfocus="this.style.borderColor='#007bff'; this.style.background='rgba(255,255,255,0.1)';"
+                    onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.background='rgba(255,255,255,0.05)';"></textarea>
             </div>
             
             <button type="submit" id="submit-btn" 
-                style="padding: 18px 30px; background: #007bff; color: white; border: none; border-radius: 14px; cursor: pointer; font-weight: bold; width: 100%; font-size: 18px; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);"
-                onmouseover="this.style.background='#28a745'; this.style.transform='scale(1.02)';"
-                onmouseout="this.style.background='#007bff'; this.style.transform='scale(1)';"
-                onmousedown="this.style.transform='scale(0.98) dice';">
-                Nachricht abschicken 🚀
+                style="padding: 16px; background: #007bff; color: white; border: none; border-radius: 15px; cursor: pointer; font-weight: 800; width: 100%; font-size: 16px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);"
+                onmouseover="this.style.background='#28a745'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 25px rgba(40, 167, 69, 0.5)';"
+                onmouseout="this.style.background='#007bff'; this.style.transform='translateY(0)';"
+                onmousedown="this.style.transform='scale(0.95)';">
+                Abschicken! 🚀
             </button>
         </form>
         
-        <div id="status-meldung" style="margin-top: 25px; display: none; padding: 20px; background-color: #28a745; color: white; border-radius: 14px; font-weight: bold; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-            ✅ Vielen Dank! Dein Feedback ist sicher gelandet.
+        <div id="status-meldung" style="margin-top: 25px; display: none; padding: 20px; background: #28a745; color: white; border-radius: 15px; font-weight: bold; animation: successPop 0.5s ease;">
+            🚀 BÄM! Danke, ist angekommen.
         </div>
     </div>
 </div>
 
 <style>
-    @keyframes popIn {
-        0% { opacity: 0; transform: scale(0.9); }
-        100% { opacity: 1; transform: scale(1); }
+    @keyframes successPop {
+        0% { transform: scale(0.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
     }
-    ::placeholder { color: #95a5a6; opacity: 0.7; }
+    ::placeholder { color: rgba(255,255,255,0.4); }
 </style>
 
 <script>
@@ -1251,8 +1249,7 @@ details[open]:hover {
     form.addEventListener("submit", async function(event) {
         event.preventDefault(); 
         btn.disabled = true;
-        btn.innerText = "Wird gesendet...";
-        btn.style.opacity = "0.7";
+        btn.innerText = "WIRD GEBEAMT...";
         
         const data = new FormData(event.target);
         
@@ -1267,15 +1264,13 @@ details[open]:hover {
                 form.reset();
             } else {
                 btn.disabled = false;
-                btn.innerText = "Nachricht abschicken 🚀";
-                btn.style.opacity = "1";
-                alert("Hoppla! Da gab es ein Problem. Bitte versuche es später nochmal.");
+                btn.innerText = "NOCHMAL VERSUCHEN 🚀";
+                alert("Fehler beim Senden. Check mal deine Verbindung!");
             }
         }).catch(error => {
             btn.disabled = false;
-            btn.innerText = "Nachricht abschicken 🚀";
-            btn.style.opacity = "1";
-            alert("Fehler: Keine Internetverbindung?");
+            btn.innerText = "NOCHMAL VERSUCHEN 🚀";
+            alert("Etwas ist schiefgelaufen.");
         });
     });
 </script>
