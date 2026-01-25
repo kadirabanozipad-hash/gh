@@ -156,8 +156,9 @@ details[open]:hover {
 
 <div id="podcast-wrapper">
     <div class="podcast-container" id="mainPodcastCart">
-        <div class="podcast-badge">NEU 🎧</div>
-        <p style="margin-top: 10px; font-weight: bold; color: #2c3e50; font-family: sans-serif;">Hier den Podcast anhören:</p>
+        <div class="podcast-badge">JETZT REINHÖREN 🔥</div>
+        
+        <h3 class="podcast-title">Hier den Podcast anhören:</h3>
         
         <div class="sound-wave" id="wave">
             <span></span><span></span><span></span><span></span><span></span>
@@ -171,70 +172,76 @@ details[open]:hover {
     <div id="stickyPlayer" class="sticky-pill-player">
         <div class="pill-content">
             <div id="pillTime" class="pill-time">0:00</div>
-            
             <div class="pill-controls">
-                <button onclick="rewindAudio()" class="skip-btn" title="10s zurück">
-                    <svg width="22" height="22" fill="#3498db" viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>
-                </button>
-                
+                <button onclick="rewindAudio()" class="skip-btn"><svg width="22" height="22" fill="#3498db" viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg></button>
                 <button id="stickyPlayPause" onclick="togglePlayPause()" class="main-play-btn">
                     <svg id="playIcon" width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     <svg id="pauseIcon" width="16" height="16" fill="white" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
-                
-                <button onclick="forwardAudio()" class="skip-btn" title="10s vor">
-                    <svg width="22" height="22" fill="#3498db" viewBox="0 0 24 24"><path d="M11.5 8c2.65 0 5.05.99 6.9 2.6L22 7v9h-9l3.62-3.62c-1.39-1.16-3.16-1.88-5.12-1.88-3.54 0-6.55 2.31-7.6 5.5l-2.37-.78C2.92 11.03 6.85 8 11.5 8z"/></svg>
-                </button>
+                <button onclick="forwardAudio()" class="skip-btn"><svg width="22" height="22" fill="#3498db" viewBox="0 0 24 24"><path d="M11.5 8c2.65 0 5.05.99 6.9 2.6L22 7v9h-9l3.62-3.62c-1.39-1.16-3.16-1.88-5.12-1.88-3.54 0-6.55 2.31-7.6 5.5l-2.37-.78C2.92 11.03 6.85 8 11.5 8z"/></svg></button>
             </div>
-
-            <div class="pill-progress-wrapper" onclick="seekAudio(event)">
-                <div id="stickyProgressBar" class="pill-progress-fill"></div>
-            </div>
+            <div class="pill-progress-wrapper" onclick="seekAudio(event)"><div id="stickyProgressBar" class="pill-progress-fill"></div></div>
         </div>
     </div>
 
     <style>
         .podcast-container {
-            background: #e3f2fd !important; padding: 25px !important; border-radius: 20px !important;
-            margin: 30px 0 !important; text-align: center !important; border: 2px solid #3498db !important;
+            background: #e3f2fd !important; 
+            padding: 35px 25px 25px 25px !important; /* Oben mehr Platz für das Badge */
+            border-radius: 20px !important;
+            margin: 40px 0 !important; 
+            text-align: center !important; 
+            border: 2px solid #3498db !important;
             position: relative !important;
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.15);
         }
 
-        /* Die Pille */
+        /* Das neue, hervorgehobene Badge */
+        .podcast-badge {
+            position: absolute; 
+            top: -15px; 
+            right: 15px;
+            background: linear-gradient(45deg, #e74c3c, #f1c40f); /* Verlauf für Aufmerksamkeit */
+            color: white; 
+            padding: 6px 15px;
+            border-radius: 8px; 
+            font-size: 0.85em; 
+            font-weight: 800;
+            font-family: 'Arial Black', sans-serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+            transform: rotate(2deg); /* Leichte Schräglage für Dynamik */
+        }
+
+        /* Die vergrößerte Überschrift */
+        .podcast-title {
+            margin-top: 5px;
+            margin-bottom: 15px;
+            font-size: 1.4em !important; 
+            font-weight: bold; 
+            color: #2c3e50; 
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Sticky Pille & Rest Styles */
         .sticky-pill-player {
             position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 380px; background: #2c3e50; border-radius: 50px;
             padding: 12px 20px; z-index: 99999; transition: all 0.5s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
         }
-
         .sticky-pill-player.show { bottom: 25px; }
-
         .pill-content { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-
         .pill-time { color: white; font-family: monospace; font-size: 0.85em; min-width: 40px; }
-
         .pill-controls { display: flex; align-items: center; gap: 8px; }
-
-        /* Der Play-Button Styling (Kein Orange!) */
         .main-play-btn {
             background: #3498db !important; border: none !important; border-radius: 50% !important;
             width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center;
-            justify-content: center; outline: none !important; transition: background 0.2s;
+            justify-content: center; outline: none !important;
         }
-        .main-play-btn:hover { background: #2980b9 !important; }
-        .main-play-btn:active { transform: scale(0.95); }
-
         .skip-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; outline: none; }
-
-        .pill-progress-wrapper {
-            flex-grow: 1; height: 6px; background: rgba(255,255,255,0.2);
-            border-radius: 10px; cursor: pointer; overflow: hidden;
-        }
-
+        .pill-progress-wrapper { flex-grow: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 10px; cursor: pointer; overflow: hidden; }
         .pill-progress-fill { width: 0%; height: 100%; background: #3498db; }
-
-        /* Sound-Wellen */
         .sound-wave { display: flex; justify-content: center; align-items: flex-end; height: 25px; gap: 3px; margin-bottom: 15px; }
         .sound-wave span { width: 3px; background: #3498db; border-radius: 2px; animation: wave-anim 1.2s infinite ease-in-out; }
         @keyframes wave-anim { 0%, 100% { height: 8px; } 50% { height: 20px; } }
@@ -253,45 +260,29 @@ details[open]:hover {
             window.togglePlayPause = function() {
                 if (mainAudio.paused) { mainAudio.play(); } else { mainAudio.pause(); }
             };
-
             window.rewindAudio = function() { mainAudio.currentTime -= 10; };
             window.forwardAudio = function() { mainAudio.currentTime += 10; };
-
             window.seekAudio = function(event) {
                 const rect = event.currentTarget.getBoundingClientRect();
                 const percent = (event.clientX - rect.left) / rect.width;
                 mainAudio.currentTime = percent * mainAudio.duration;
             };
-
             function formatTime(time) {
                 const mins = Math.floor(time / 60);
                 const secs = Math.floor(time % 60);
                 return mins + ":" + (secs < 10 ? "0" : "") + secs;
             }
-
-            mainAudio.onplay = () => {
-                playIcon.style.display = "none";
-                pauseIcon.style.display = "block";
-            };
-
-            mainAudio.onpause = () => {
-                playIcon.style.display = "block";
-                pauseIcon.style.display = "none";
-            };
-
+            mainAudio.onplay = () => { playIcon.style.display = "none"; pauseIcon.style.display = "block"; };
+            mainAudio.onpause = () => { playIcon.style.display = "block"; pauseIcon.style.display = "none"; };
             mainAudio.addEventListener('timeupdate', () => {
                 const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
                 stickyProgressBar.style.width = progress + "%";
                 pillTime.innerText = formatTime(mainAudio.currentTime);
             });
-
             window.addEventListener('scroll', () => {
                 const rect = podcastCart.getBoundingClientRect();
-                if (rect.bottom < 0 && !mainAudio.paused) {
-                    stickyPlayer.classList.add('show');
-                } else {
-                    stickyPlayer.classList.remove('show');
-                }
+                if (rect.bottom < 0 && !mainAudio.paused) { stickyPlayer.classList.add('show'); } 
+                else { stickyPlayer.classList.remove('show'); }
             });
         })();
     </script>
