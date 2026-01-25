@@ -779,7 +779,6 @@ details[open]:hover {
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        /* Hover-Zustand */
         .category-item:hover {
             color: #28a745;
             transform: translateY(-3px);
@@ -787,7 +786,6 @@ details[open]:hover {
             border-color: #28a745;
         }
 
-        /* Aktiver Zustand (Blau) */
         .category-item.active {
             color: #ffffff;
             background: #007bff;
@@ -796,7 +794,7 @@ details[open]:hover {
             transform: scale(1.05);
         }
 
-        /* Pulsierender Punkt als Motivations-Trigger */
+        /* Pulsierender Punkt */
         .category-item.new::after {
             content: '';
             position: absolute;
@@ -840,7 +838,6 @@ details[open]:hover {
         @media (max-width: 850px) {
             #content-box { grid-template-columns: 1fr; padding: 30px; }
             .category-nav { flex-direction: column; align-items: stretch; }
-            .category-item { text-align: center; }
         }
 
         .text-content h3 {
@@ -860,6 +857,8 @@ details[open]:hover {
             max-width: 100%;
             height: auto;
             border-radius: 20px;
+            display: block;
+            margin: 0 auto;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
         }
 
@@ -872,10 +871,10 @@ details[open]:hover {
     <h2 class="headline-main">Der Flickenteppich der Bundesländer</h2>
 
     <nav class="category-nav">
-        <div class="category-item new" onclick="showFact(this, 1, 'Klasse 1', 'Hier sehen Sie die Regelungen und Gemeinsamkeiten für das erste Schuljahr in den verschiedenen Bundesländern.')">Klasse 1</div>
-        <div class="category-item" onclick="showFact(this, 2, 'Klasse 2', 'Im zweiten Schuljahr gibt es deutliche Unterschiede in der Leistungsbewertung. Hier sind die Details.')">Klasse 2</div>
-        <div class="category-item" onclick="showFact(this, 3, 'Klasse 3', 'Die dritte Klasse markiert oft einen Umschwung in der Benotung. Diese Karte zeigt die aktuelle Lage.')">Klasse 3</div>
-        <div class="category-item" onclick="showFact(this, 4, 'Klasse 4', 'Das vierte Schuljahr und die Übergangsempfehlungen: So regeln es die Bundesländer im Vergleich.')">Klasse 4</div>
+        <div class="category-item new" onclick="showFact(this, 1, 'Klasse 1', 'Regelungen für das erste Schuljahr: Hier stehen oft pädagogische Berichte im Vordergrund.')">Klasse 1</div>
+        <div class="category-item" onclick="showFact(this, 2, 'Klasse 2', 'Zweites Schuljahr: Der Übergang zur Benotung wird hier sehr unterschiedlich gehandhabt.')">Klasse 2</div>
+        <div class="category-item" onclick="showFact(this, 3, 'Klasse 3', 'Dritte Klasse: In den meisten Ländern rücken nun Ziffernnoten stärker in den Fokus.')">Klasse 3</div>
+        <div class="category-item" onclick="showFact(this, 4, 'Klasse 4', 'Vierte Klasse: Der Vergleich zeigt die Kriterien für die weiterführenden Schulen.')">Klasse 4</div>
     </nav>
 
     <div id="display-anchor" class="scroll-target"></div>
@@ -885,44 +884,48 @@ details[open]:hover {
             <h3 id="fact-title"></h3>
             <p id="fact-description"></p>
         </div>
-        <div class="image-content" style="text-align: center;">
-            <img id="fact-image" src="" alt="Landkarte" class="map-img">
+        <div class="image-content">
+            <img id="fact-image" src="" alt="Landkarte der Bundesländer" class="map-img">
         </div>
     </div>
 </section>
 
 <script>
     function showFact(btn, imgNumber, title, desc) {
-        // UI aktualisieren
+        // UI zurücksetzen
         document.querySelectorAll('.category-item').forEach(item => {
             item.classList.remove('active');
             item.classList.remove('new');
         });
         btn.classList.add('active');
 
-        // Inhalte setzen
+        // Inhalte füllen
         document.getElementById('fact-title').innerText = title;
         document.getElementById('fact-description').innerText = desc;
 
-        // Bild-Pfad für GitHub (Punkt-Notation für aktuellen Ordner)
+        // Bild-Quelle setzen
         const imgElement = document.getElementById('fact-image');
-        const fileName = './country(' + imgNumber + ').svg';
         
-        // Cache-Buster hinzufügen, damit GitHub Änderungen sofort zeigt
-        imgElement.src = fileName + '?v=' + new Date().getTime();
+        // Wir nutzen hier country1.svg (ohne Klammern, Kleingeschrieben)
+        const fileName = 'country' + imgNumber + '.svg';
+        
+        // Cache-Buster verhindert, dass GitHub alte Bilder anzeigt
+        imgElement.src = fileName + '?v=' + Math.random();
 
-        // Animation auslösen
+        // Fehlerdiagnose für dich:
+        imgElement.onerror = function() {
+            console.error("GitHub konnte die Datei nicht finden: " + fileName);
+        };
+
+        // Sichtbarkeit
         const contentBox = document.getElementById('content-box');
         contentBox.classList.add('visible');
 
-        // Sanftes Scrollen zum Inhaltsbereich
+        // Sanftes Scrollen
         setTimeout(() => {
             const anchor = document.getElementById('display-anchor');
             if(anchor) {
-                anchor.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
+                anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }, 150);
     }
