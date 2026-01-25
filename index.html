@@ -1204,6 +1204,55 @@ document.querySelectorAll('details').forEach((targetDetail) => {
         }
     });
 });
+
+
+
+
+
+
+        const mainAudio = document.getElementById('podcastAudio');
+const podcastCart = document.getElementById('mainPodcastCart');
+const stickyPlayer = document.getElementById('stickyPlayer');
+const wave = document.getElementById('wave');
+
+// Am Anfang die Animation starten
+podcastCart.classList.add('pulse-animation');
+
+// Wenn der Podcast gestartet wird
+mainAudio.onplay = function() {
+    // Stoppe das "Ploppen"
+    podcastCart.classList.remove('pulse-animation');
+    podcastCart.style.transform = "scale(1)";
+    podcastCart.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
+};
+
+// Wenn der Podcast pausiert wird, kann er wieder ploppen (optional)
+mainAudio.onpause = function() {
+    if (!mainAudio.ended) {
+        podcastCart.classList.add('pulse-animation');
+    }
+};
+
+// Scroll-Logik für die Sticky-Leiste
+window.addEventListener('scroll', function() {
+    const rect = mainAudio.getBoundingClientRect();
+    
+    // Wenn der Audio-Player oben aus dem Sichtfeld verschwindet UND Musik läuft
+    if (rect.bottom < 0 && !mainAudio.paused) {
+        stickyPlayer.classList.add('show');
+    } else {
+        stickyPlayer.classList.remove('show');
+    }
+});
+
+// WICHTIG: Den Standard-Player mit der Sticky-Leiste synchronisieren
+// In einer einfachen Version zeigen wir unten nur an, dass es läuft.
+// Für volle Kontrolle müsste man ein eigenes Player-Design bauen, 
+// aber die Browser-Controls sind stabiler.
+
+
+
+        
     </script>
         
 </body>
