@@ -739,30 +739,29 @@ details[open]:hover {
 
 
 
+<div style="margin-top: 80px; border-top: 2px solid rgba(0,0,0,0.1); padding-top: 40px;"></div>
 
 <section id="bundesland-vergleich">
     <style>
         #bundesland-vergleich {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 1100px;
-            margin: 40px auto;
-            padding: 20px;
+            margin: 0 auto;
             color: #333;
         }
 
         .headline-main {
             text-align: center;
             color: #333; /* Deine Wunschfarbe */
-            font-size: 2rem;
-            font-weight: 800;
+            font-size: 2.2rem;
+            font-weight: 700;
             margin-bottom: 35px;
-            letter-spacing: -0.5px;
         }
 
-        /* Modernes Button-Grid ohne Emojis */
+        /* Layout der Kacheln exakt wie vorher, nur ohne Emojis */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-bottom: 50px;
         }
@@ -788,21 +787,21 @@ details[open]:hover {
             letter-spacing: 0.5px;
         }
 
-        /* Hover-Effekt mit Grün */
+        /* Hover-Effekt mit deiner Wunschfarbe Grün */
         .feature-card:hover {
             transform: translateY(-5px);
             border-color: #28a745; 
             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         }
 
-        /* Aktiver Zustand mit Blau */
+        /* Aktiver Zustand mit deiner Wunschfarbe Blau */
         .feature-card.active {
             border-color: #007bff;
             background: #f8fbff;
             box-shadow: 0 4px 10px rgba(0,123,255,0.15);
         }
 
-        /* Der Inhaltsbereich (Das "Aufblocken") */
+        /* Aufblockender Inhaltsbereich */
         #content-box {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
@@ -819,7 +818,6 @@ details[open]:hover {
             visibility: hidden;
         }
 
-        /* Wenn aktiv angezeigt */
         #content-box.visible {
             opacity: 1;
             transform: scale(1);
@@ -832,7 +830,7 @@ details[open]:hover {
         }
 
         .text-content h3 {
-            color: #007bff; /* Blau für den Titel im Detail */
+            color: #007bff; /* Blau für Details */
             font-size: 1.7rem;
             margin-top: 0;
         }
@@ -840,7 +838,7 @@ details[open]:hover {
         .text-content p {
             font-size: 1.15rem;
             line-height: 1.6;
-            color: #555;
+            color: #333;
         }
 
         .map-img {
@@ -850,13 +848,13 @@ details[open]:hover {
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
         }
 
-        /* Hilfsklasse für den Scroll-Anker */
         .scroll-target {
-            margin-top: -20px;
+            margin-top: -30px;
+            height: 1px;
         }
     </style>
 
-    <h2 class="headline-main">Unterschiede der Bundesländer</h2>
+    <h2 class="headline-main">Der Flickenteppich der Bundesländer</h2>
 
     <div class="card-grid">
         <div class="feature-card" onclick="showFact(this, 'kueste', 'Küstenländer', 'Diese Bundesländer grenzen an die Nord- oder Ostsee.')">
@@ -889,23 +887,23 @@ details[open]:hover {
 
 <script>
     function showFact(btn, imgKey, title, desc) {
-        // UI aufräumen
         document.querySelectorAll('.feature-card').forEach(c => c.classList.remove('active'));
         btn.classList.add('active');
 
         const contentBox = document.getElementById('content-box');
         
-        // Text & Bild setzen
         document.getElementById('fact-title').innerText = title;
         document.getElementById('fact-description').innerText = desc;
-        document.getElementById('fact-image').src = 'pfad/zu/deinen/bildern/' + imgKey + '.png';
+        // Ersetze 'DEIN_PFAD/' durch den tatsächlichen Pfad zu deinen Bildern
+        document.getElementById('fact-image').src = 'DEIN_PFAD/' + imgKey + '.png';
 
-        // Sichtbar machen (Aufblock-Effekt)
         contentBox.classList.add('visible');
 
-        // Automatisch nach unten scrollen
-        const anchor = document.getElementById('display-anchor');
-        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Sanftes Scrollen zum Anker
+        document.getElementById('display-anchor').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
     }
 </script>
             
