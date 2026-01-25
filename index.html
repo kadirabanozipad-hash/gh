@@ -154,20 +154,24 @@ details[open]:hover {
 
 
 
-<div id="podcast-wrapper">
-    <div class="podcast-container" id="mainPodcastCart">
-        <div class="podcast-badge">NEU🔥</div>
-        
-        <h3 class="podcast-title">Hier den Podcast anhören:</h3>
-        
-        <div class="sound-wave" id="wave">
-            <span></span><span></span><span></span><span></span><span></span>
-        </div>
 
-        <audio id="podcastAudio" controls style="width: 100%; max-width: 400px; margin: 0 auto; display: block;">
-            <source src="https://raw.githubusercontent.com/kadirabanozipad-hash/gh/main/Podcastt.mp3" type="audio/mpeg">
-        </audio>
+
+
+        
+
+<div class="podcast-container" id="mainPodcastCart">
+    <div class="podcast-badge">NEU🔥</div>
+    <h3 class="podcast-title">Hier den Podcast anhören:</h3>
+    <div class="sound-wave" id="wave">
+        <span></span><span></span><span></span><span></span><span></span>
     </div>
+    <p style="font-size: 0.9em; color: #666;">Klicke unten zum Abspielen</p>
+</div>
+
+<div id="global-audio-wrapper">
+    <audio id="podcastAudio">
+        <source src="https://raw.githubusercontent.com/kadirabanozipad-hash/gh/main/Podcastt.mp3" type="audio/mpeg">
+    </audio>
 
     <div id="stickyPlayer" class="sticky-pill-player">
         <div class="pill-content">
@@ -183,110 +187,93 @@ details[open]:hover {
             <div class="pill-progress-wrapper" onclick="seekAudio(event)"><div id="stickyProgressBar" class="pill-progress-fill"></div></div>
         </div>
     </div>
-
-    <style>
-        .podcast-container {
-            background: #e3f2fd !important; 
-            padding: 35px 25px 25px 25px !important; /* Oben mehr Platz für das Badge */
-            border-radius: 20px !important;
-            margin: 40px 0 !important; 
-            text-align: center !important; 
-            border: 2px solid #3498db !important;
-            position: relative !important;
-            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.15);
-        }
-
-        /* Das neue, hervorgehobene Badge */
-        .podcast-badge {
-            position: absolute; 
-            top: -15px; 
-            right: 15px;
-            background: linear-gradient(45deg, #e74c3c, #f1c40f); /* Verlauf für Aufmerksamkeit */
-            color: white; 
-            padding: 6px 15px;
-            border-radius: 8px; 
-            font-size: 0.85em; 
-            font-weight: 800;
-            font-family: 'Arial Black', sans-serif;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            letter-spacing: 1px;
-            transform: rotate(2deg); /* Leichte Schräglage für Dynamik */
-        }
-
-        /* Die vergrößerte Überschrift */
-        .podcast-title {
-            margin-top: 5px;
-            margin-bottom: 15px;
-            font-size: 1.4em !important; 
-            font-weight: bold; 
-            color: #2c3e50; 
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        /* Sticky Pille & Rest Styles */
-        .sticky-pill-player {
-            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 380px; background: #2c3e50; border-radius: 50px;
-            padding: 12px 20px; z-index: 99999; transition: all 0.5s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
-        }
-        .sticky-pill-player.show { bottom: 25px; }
-        .pill-content { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-        .pill-time { color: white; font-family: monospace; font-size: 0.85em; min-width: 40px; }
-        .pill-controls { display: flex; align-items: center; gap: 8px; }
-        .main-play-btn {
-            background: #3498db !important; border: none !important; border-radius: 50% !important;
-            width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center;
-            justify-content: center; outline: none !important;
-        }
-        .skip-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; outline: none; }
-        .pill-progress-wrapper { flex-grow: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 10px; cursor: pointer; overflow: hidden; }
-        .pill-progress-fill { width: 0%; height: 100%; background: #3498db; }
-        .sound-wave { display: flex; justify-content: center; align-items: flex-end; height: 25px; gap: 3px; margin-bottom: 15px; }
-        .sound-wave span { width: 3px; background: #3498db; border-radius: 2px; animation: wave-anim 1.2s infinite ease-in-out; }
-        @keyframes wave-anim { 0%, 100% { height: 8px; } 50% { height: 20px; } }
-    </style>
-
-    <script>
-        (function() {
-            const mainAudio = document.getElementById('podcastAudio');
-            const podcastCart = document.getElementById('mainPodcastCart');
-            const stickyPlayer = document.getElementById('stickyPlayer');
-            const playIcon = document.getElementById('playIcon');
-            const pauseIcon = document.getElementById('pauseIcon');
-            const pillTime = document.getElementById('pillTime');
-            const stickyProgressBar = document.getElementById('stickyProgressBar');
-
-            window.togglePlayPause = function() {
-                if (mainAudio.paused) { mainAudio.play(); } else { mainAudio.pause(); }
-            };
-            window.rewindAudio = function() { mainAudio.currentTime -= 10; };
-            window.forwardAudio = function() { mainAudio.currentTime += 10; };
-            window.seekAudio = function(event) {
-                const rect = event.currentTarget.getBoundingClientRect();
-                const percent = (event.clientX - rect.left) / rect.width;
-                mainAudio.currentTime = percent * mainAudio.duration;
-            };
-            function formatTime(time) {
-                const mins = Math.floor(time / 60);
-                const secs = Math.floor(time % 60);
-                return mins + ":" + (secs < 10 ? "0" : "") + secs;
-            }
-            mainAudio.onplay = () => { playIcon.style.display = "none"; pauseIcon.style.display = "block"; };
-            mainAudio.onpause = () => { playIcon.style.display = "block"; pauseIcon.style.display = "none"; };
-            mainAudio.addEventListener('timeupdate', () => {
-                const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
-                stickyProgressBar.style.width = progress + "%";
-                pillTime.innerText = formatTime(mainAudio.currentTime);
-            });
-            window.addEventListener('scroll', () => {
-                const rect = podcastCart.getBoundingClientRect();
-                if (rect.bottom < 0 && !mainAudio.paused) { stickyPlayer.classList.add('show'); } 
-                else { stickyPlayer.classList.remove('show'); }
-            });
-        })();
-    </script>
 </div>
+
+<style>
+    /* ... (Deine bestehenden Styles bleiben gleich) ... */
+    .sticky-pill-player {
+        position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+        width: 90%; max-width: 380px; background: #2c3e50; border-radius: 50px;
+        padding: 12px 20px; z-index: 99999; transition: all 0.5s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+    }
+    .sticky-pill-player.show { bottom: 25px !important; }
+</style>
+
+<script>
+    (function() {
+        const mainAudio = document.getElementById('podcastAudio');
+        const stickyPlayer = document.getElementById('stickyPlayer');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const pillTime = document.getElementById('pillTime');
+        const stickyProgressBar = document.getElementById('stickyProgressBar');
+
+        window.togglePlayPause = function() {
+            if (mainAudio.paused) { mainAudio.play(); } else { mainAudio.pause(); }
+        };
+
+        window.rewindAudio = function() { mainAudio.currentTime -= 10; };
+        window.forwardAudio = function() { mainAudio.currentTime += 10; };
+        
+        window.seekAudio = function(event) {
+            const rect = event.currentTarget.getBoundingClientRect();
+            const percent = (event.clientX - rect.left) / rect.width;
+            mainAudio.currentTime = percent * mainAudio.duration;
+        };
+
+        function formatTime(time) {
+            const mins = Math.floor(time / 60);
+            const secs = Math.floor(time % 60);
+            return mins + ":" + (secs < 10 ? "0" : "") + secs;
+        }
+
+        mainAudio.onplay = () => { 
+            playIcon.style.display = "none"; 
+            pauseIcon.style.display = "block";
+            checkVisibility(); // Sofort prüfen
+        };
+        
+        mainAudio.onpause = () => { 
+            playIcon.style.display = "block"; 
+            pauseIcon.style.display = "none";
+            checkVisibility();
+        };
+
+        mainAudio.addEventListener('timeupdate', () => {
+            const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
+            stickyProgressBar.style.width = progress + "%";
+            pillTime.innerText = formatTime(mainAudio.currentTime);
+        });
+
+        function checkVisibility() {
+            const podcastCart = document.getElementById('mainPodcastCart');
+            
+            // Logik: Zeige den Sticky Player, wenn...
+            // 1. Audio läuft UND (das Hauptfeld nicht existiert ODER aus dem Sichtfeld gescrollt ist)
+            if (!mainAudio.paused) {
+                if (!podcastCart) {
+                    // Hauptfeld existiert auf dieser Seite gar nicht -> Immer zeigen
+                    stickyPlayer.classList.add('show');
+                } else {
+                    const rect = podcastCart.getBoundingClientRect();
+                    if (rect.bottom < 0) {
+                        stickyPlayer.classList.add('show');
+                    } else {
+                        stickyPlayer.classList.remove('show');
+                    }
+                }
+            } else {
+                // Wenn Pause ist, nur zeigen wenn man weit weg gescrollt ist, sonst verstecken
+                stickyPlayer.classList.remove('show');
+            }
+        }
+
+        window.addEventListener('scroll', checkVisibility);
+        // Intervall prüft alle 1 Sekunde, ob das Menü gewechselt wurde (falls kein Scroll-Event feuert)
+        setInterval(checkVisibility, 1000);
+    })();
+</script>
 
         
 
