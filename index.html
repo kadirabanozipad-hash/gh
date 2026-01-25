@@ -737,8 +737,6 @@ details[open]:hover {
 
 
 
-
-
 <div style="margin-top: 80px; border-top: 3px solid #ffffff; padding-top: 40px; width: 60%; margin-left: auto; margin-right: auto;"></div>
 
 <section id="bundesland-vergleich">
@@ -758,14 +756,13 @@ details[open]:hover {
             margin-bottom: 50px;
         }
 
-        /* Die neue Segment-Navigation */
+        /* Die elegante Pillen-Navigation */
         .category-nav {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 60px;
-            position: relative;
         }
 
         .category-item {
@@ -774,23 +771,22 @@ details[open]:hover {
             font-weight: 600;
             font-size: 0.95rem;
             color: #666;
-            border-radius: 50px; /* Pillen-Form */
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 50px;
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
         }
 
-        /* Hover-Zustand: Subtiles Leuchten */
+        /* Hover-Zustand */
         .category-item:hover {
             color: #28a745;
-            background: #ffffff;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(40, 167, 69, 0.1);
+            border-color: #28a745;
         }
 
-        /* Aktiver Zustand: Die "Pille" wird farbig */
+        /* Aktiver Zustand (Blau) */
         .category-item.active {
             color: #ffffff;
             background: #007bff;
@@ -799,26 +795,26 @@ details[open]:hover {
             transform: scale(1.05);
         }
 
-        /* Kleiner pulsierender Punkt als "Neu"-Signal (Animation) */
-        .category-item.new::before {
+        /* Pulsierender Punkt als Motivations-Trigger */
+        .category-item.new::after {
             content: '';
             position: absolute;
-            top: 5px;
-            right: 10px;
-            width: 6px;
-            height: 6px;
+            top: -2px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
             background: #28a745;
             border-radius: 50%;
             animation: pulse-green 2s infinite;
         }
 
         @keyframes pulse-green {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(40, 167, 69, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
         }
 
-        /* Inhaltsbereich bleibt wie gewünscht */
+        /* Aufblockender Inhaltsbereich */
         #content-box {
             display: grid;
             grid-template-columns: 1.1fr 1fr;
@@ -875,10 +871,10 @@ details[open]:hover {
     <h2 class="headline-main">Der Flickenteppich der Bundesländer</h2>
 
     <nav class="category-nav">
-        <div class="category-item new" onclick="showFact(this, 'kueste', 'Keine Noten', 'Alle Bundesländer verzichten im ersten Schuljahr auf klassische Ziffernnoten')">Keine Noten</div>
-        <div class="category-item" onclick="showFact(this, 'stadtstaaten', 'Stadtstaaten', 'Kompakte Power: Berlin, Hamburg und Bremen vereinen Stadtverwaltung und Landesrecht.')">Stadtstaaten</div>
-        <div class="category-item" onclick="showFact(this, 'neue-laender', 'Kein Söder', 'Bayerische Grenzen: Diese Auswahl zeigt alle Bundesländer, in denen die CSU nicht regiert.')">Kein Söder</div>
-        <div class="category-item" onclick="showFact(this, 'noten', 'Keine Noten Klasse 1 & 2', 'Lernen ohne Druck: In diesen Ländern verzichtet man in der Schuleingangsphase auf Ziffernnoten.')">Keine Noten (Kl. 1/2)</div>
+        <div class="category-item new" onclick="showFact(this, 1, 'Küstenländer', 'Hier weht eine frische Brise: Diese Bundesländer grenzen an die Nord- oder Ostsee.')">Küstenländer</div>
+        <div class="category-item" onclick="showFact(this, 2, 'Stadtstaaten', 'Metropolen im Fokus: Berlin, Hamburg und Bremen sind pulsierende Städte und Bundesländer zugleich.')">Stadtstaaten</div>
+        <div class="category-item" onclick="showFact(this, 3, 'Kein Söder', 'Bayerische Grenzen: Diese Bundesländer zeigen alle Regionen Deutschlands außerhalb Bayerns.')">Kein Söder</div>
+        <div class="category-item" onclick="showFact(this, 4, 'Keine Noten Klasse 1 & 2', 'Lernen ohne Druck: In diesen Ländern gibt es in den ersten beiden Schuljahren Wortgutachten statt Ziffern.')">Keine Noten (Kl. 1/2)</div>
     </nav>
 
     <div id="display-anchor" class="scroll-target"></div>
@@ -889,31 +885,34 @@ details[open]:hover {
             <p id="fact-description"></p>
         </div>
         <div class="image-content" style="text-align: center;">
-            <img id="fact-image" src="" alt="Karte" class="map-img">
+            <img id="fact-image" src="" alt="Landkarte" class="map-img">
         </div>
     </div>
 </section>
 
 <script>
-    function showFact(btn, imgKey, title, desc) {
-        // Nav-Items resetten
-        document.querySelectorAll('.category-item').forEach(c => {
-            c.classList.remove('active');
-            // Punkt entfernen, wenn einmal geklickt
-            c.classList.remove('new');
+    function showFact(btn, imgNumber, title, desc) {
+        // UI zurücksetzen
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.classList.remove('active');
+            item.classList.remove('new'); // Entfernt den pulsierenden Punkt beim ersten Klick
         });
         btn.classList.add('active');
 
-        // Inhalt setzen
+        // Text-Inhalte füllen
         document.getElementById('fact-title').innerText = title;
         document.getElementById('fact-description').innerText = desc;
-        document.getElementById('fact-image').src = 'DEIN_PFAD/' + imgKey + '.png';
 
-        // Anzeigen
+        // Bild-Quelle setzen (Hier wird country(1).svg etc. generiert)
+        // Falls die Bilder in einem Ordner liegen, z.B. 'img/country(' + imgNumber + ').svg'
+        const imgElement = document.getElementById('fact-image');
+        imgElement.src = 'country(' + imgNumber + ').svg';
+
+        // Aufblock-Effekt aktivieren
         const contentBox = document.getElementById('content-box');
         contentBox.classList.add('visible');
 
-        // Scrollen
+        // Sanftes Scrollen
         setTimeout(() => {
             document.getElementById('display-anchor').scrollIntoView({ 
                 behavior: 'smooth', 
