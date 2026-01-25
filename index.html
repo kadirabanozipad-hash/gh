@@ -1059,24 +1059,24 @@
                 platzhalter.style.display = "none";
             }
         }
-    </script>
 
-
-
-<script>function toggleLand(headerElement) {
-    const currentContainer = headerElement.parentElement;
-    const isOpen = currentContainer.classList.contains('open');
-
-    // 1. Alle anderen Bundesländer schließen
-    document.querySelectorAll('.land-container').forEach(container => {
-        container.classList.remove('open');
+        // --- AUTO-CLOSE LOGIK FÜR BUNDESLÄNDER ---
+// Diese Logik sorgt dafür, dass nur ein Bundesland gleichzeitig offen ist
+document.querySelectorAll('details').forEach((targetDetail) => {
+    targetDetail.addEventListener('click', () => {
+        // Wenn man ein Details-Element öffnet...
+        if (!targetDetail.open) {
+            // ...suche alle anderen und schließe sie
+            document.querySelectorAll('details').forEach((el) => {
+                if (el !== targetDetail) {
+                    el.removeAttribute('open');
+                }
+            });
+        }
     });
-
-    // 2. Das angeklickte Land nur öffnen, wenn es vorher zu war
-    if (!isOpen) {
-        currentContainer.classList.add('open');
-    }
-}</script>
+});
+    </script>
+        
 </body>
 </html>
 
