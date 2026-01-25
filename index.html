@@ -739,7 +739,7 @@ details[open]:hover {
 
 
 
-<div style="margin-top: 80px; border-top: 2px solid rgba(0,0,0,0.1); padding-top: 40px;"></div>
+<div style="margin-top: 80px; border-top: 3px solid #ffffff; padding-top: 40px; width: 60%; margin-left: auto; margin-right: auto;"></div>
 
 <section id="bundesland-vergleich">
     <style>
@@ -752,135 +752,159 @@ details[open]:hover {
 
         .headline-main {
             text-align: center;
-            color: #333; /* Deine Wunschfarbe */
+            color: #333;
             font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
 
-        /* Layout der Kacheln exakt wie vorher, nur ohne Emojis */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            gap: 25px;
             margin-bottom: 50px;
         }
 
+        /* Die lebendige Kachel */
         .feature-card {
             background: #ffffff;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            padding: 25px 15px;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 20px;
+            padding: 35px 20px;
             cursor: pointer;
-            transition: all 0.3s ease-out;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            /* Sanfte Dauer-Animation für Mobile */
+            animation: gentle-breath 4s infinite ease-in-out;
+        }
+
+        /* Sanftes "Atmen" der Kacheln */
+        @keyframes gentle-breath {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+            50% { transform: scale(1.02); box-shadow: 0 15px 25px rgba(0,0,0,0.08); }
+        }
+
+        /* Stoppe Animation bei Interaktion oder wenn aktiv */
+        .feature-card:hover, .feature-card.active {
+            animation: none;
         }
 
         .feature-card span {
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #444;
         }
 
-        /* Hover-Effekt mit deiner Wunschfarbe Grün */
+        /* Kleiner visueller Hinweis (Pfeil nach unten) */
+        .feature-card::after {
+            content: '▼';
+            font-size: 10px;
+            color: #ccc;
+            margin-top: 10px;
+            transition: color 0.3s;
+        }
+
         .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: #28a745; 
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transform: translateY(-8px) scale(1.03);
+            border-color: #28a745;
+            box-shadow: 0 20px 40px rgba(40, 167, 69, 0.12);
         }
 
-        /* Aktiver Zustand mit deiner Wunschfarbe Blau */
+        .feature-card:hover::after { color: #28a745; }
+
+        /* Aktiver Zustand */
         .feature-card.active {
-            border-color: #007bff;
-            background: #f8fbff;
-            box-shadow: 0 4px 10px rgba(0,123,255,0.15);
+            background: #ffffff;
+            border: 2px solid #007bff;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
         }
+        
+        .feature-card.active span { color: #007bff; }
+        .feature-card.active::after { content: '✓'; color: #007bff; font-weight: bold; }
 
-        /* Aufblockender Inhaltsbereich */
+        /* Inhaltsbereich */
         #content-box {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1.1fr 1fr;
             gap: 40px;
             background: #ffffff;
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 40px;
             border: 1px solid #eee;
-            align-items: center;
-            min-height: 400px;
             opacity: 0;
-            transform: scale(0.98);
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(40px);
+            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
             visibility: hidden;
         }
 
         #content-box.visible {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
             visibility: visible;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
         }
 
         @media (max-width: 850px) {
-            #content-box { grid-template-columns: 1fr; padding: 25px; }
+            #content-box { grid-template-columns: 1fr; }
+            .feature-card { animation-duration: 5s; } /* Langsamer auf Mobilgeräten */
         }
 
         .text-content h3 {
-            color: #007bff; /* Blau für Details */
-            font-size: 1.7rem;
+            color: #007bff;
+            font-size: 1.8rem;
             margin-top: 0;
+            border-left: 5px solid #28a745;
+            padding-left: 15px;
         }
 
         .text-content p {
             font-size: 1.15rem;
-            line-height: 1.6;
+            line-height: 1.8;
             color: #333;
         }
 
         .map-img {
             max-width: 100%;
             height: auto;
-            border-radius: 12px;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
-        }
-
-        .scroll-target {
-            margin-top: -30px;
-            height: 1px;
+            border-radius: 15px;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
         }
     </style>
 
     <h2 class="headline-main">Der Flickenteppich der Bundesländer</h2>
 
     <div class="card-grid">
-        <div class="feature-card" onclick="showFact(this, 'kueste', 'Küstenländer', 'Diese Bundesländer grenzen an die Nord- oder Ostsee.')">
+        <div class="feature-card" onclick="showFact(this, 'kueste', 'Küstenländer', 'Diese Bundesländer prägen den Norden Deutschlands mit ihrem direkten Zugang zu Nord- und Ostsee.')">
             <span>Küstenländer</span>
         </div>
-        <div class="feature-card" onclick="showFact(this, 'stadtstaaten', 'Stadtstaaten', 'Berlin, Hamburg und Bremen agieren als Stadt und Bundesland zugleich.')">
+        <div class="feature-card" onclick="showFact(this, 'stadtstaaten', 'Stadtstaaten', 'Berlin, Hamburg und Bremen sind pulsierende Metropolen mit dem rechtlichen Status eines Bundeslandes.')">
             <span>Stadtstaaten</span>
         </div>
-        <div class="feature-card" onclick="showFact(this, 'neue-laender', 'Kein Söder', 'Alle Bundesländer außer Bayern.')">
+        <div class="feature-card" onclick="showFact(this, 'neue-laender', 'Kein Söder', 'Bayerische Grenzen: Hier zeigen wir alle Bundesländer, die nicht unter bayerischer Flagge segeln.')">
             <span>Kein Söder</span>
         </div>
-        <div class="feature-card" onclick="showFact(this, 'noten', 'Keine Noten Klasse 1 & 2', 'In diesen Ländern gibt es in den ersten beiden Schuljahren nur schriftliche Berichte statt Ziffernnoten.')">
+        <div class="feature-card" onclick="showFact(this, 'noten', 'Keine Noten Klasse 1 & 2', 'Individuelle Förderung statt Notendruck: In diesen Ländern gibt es zu Beginn der Grundschule Wortgutachten.')">
             <span>Keine Noten (Kl. 1/2)</span>
         </div>
     </div>
 
-    <div id="display-anchor" class="scroll-target"></div>
+    <div id="display-anchor" style="height: 1px;"></div>
 
     <div id="content-box">
         <div class="text-content">
             <h3 id="fact-title"></h3>
             <p id="fact-description"></p>
         </div>
-
-        <div class="image-content">
-            <img id="fact-image" src="" alt="Landkarte" class="map-img">
+        <div class="image-content" style="text-align: center;">
+            <img id="fact-image" src="" alt="Karte" class="map-img">
         </div>
     </div>
 </section>
@@ -890,20 +914,20 @@ details[open]:hover {
         document.querySelectorAll('.feature-card').forEach(c => c.classList.remove('active'));
         btn.classList.add('active');
 
-        const contentBox = document.getElementById('content-box');
-        
         document.getElementById('fact-title').innerText = title;
         document.getElementById('fact-description').innerText = desc;
-        // Ersetze 'DEIN_PFAD/' durch den tatsächlichen Pfad zu deinen Bildern
         document.getElementById('fact-image').src = 'DEIN_PFAD/' + imgKey + '.png';
 
+        const contentBox = document.getElementById('content-box');
         contentBox.classList.add('visible');
 
-        // Sanftes Scrollen zum Anker
-        document.getElementById('display-anchor').scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
-        });
+        // Verzögertes Scrollen für bessere Wahrnehmung der Animation
+        setTimeout(() => {
+            document.getElementById('display-anchor').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }, 150);
     }
 </script>
             
