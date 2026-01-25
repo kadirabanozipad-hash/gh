@@ -868,10 +868,10 @@ details[open]:hover {
         }
     </style>
 
-    <h2 class="headline-main">Der Flickenteppich der Bundesländer</h2>
+    <h2 class="headline-main">Gemeinsamkeiten in der Übersicht</h2>
 
     <nav class="category-nav">
-        <div class="category-item new" onclick="showFact(this, 1, 'Küstenländer', 'Hier weht eine frische Brise: Diese Bundesländer grenzen an die Nord- oder Ostsee.')">Küstenländer</div>
+        <div class="category-item new" onclick="showFact(this, 1, 'Keine Noten', 'Auch wenn es viele unterschiede gibt. In einer Sache sind sich alle Bundesländer einig: Keine Ziffernoten in Klasse 1!')">Keine Noten</div>
         <div class="category-item" onclick="showFact(this, 2, 'Stadtstaaten', 'Metropolen im Fokus: Berlin, Hamburg und Bremen sind pulsierende Städte und Bundesländer zugleich.')">Stadtstaaten</div>
         <div class="category-item" onclick="showFact(this, 3, 'Kein Söder', 'Bayerische Grenzen: Diese Bundesländer zeigen alle Regionen Deutschlands außerhalb Bayerns.')">Kein Söder</div>
         <div class="category-item" onclick="showFact(this, 4, 'Keine Noten Klasse 1 & 2', 'Lernen ohne Druck: In diesen Ländern gibt es in den ersten beiden Schuljahren Wortgutachten statt Ziffern.')">Keine Noten (Kl. 1/2)</div>
@@ -906,7 +906,7 @@ details[open]:hover {
         // Bild-Quelle setzen (Hier wird country(1).svg etc. generiert)
         // Falls die Bilder in einem Ordner liegen, z.B. 'img/country(' + imgNumber + ').svg'
         const imgElement = document.getElementById('fact-image');
-        imgElement.src = 'country(' + imgNumber + ').svg';
+        imgElement.src = 'country(1).svg';
 
         // Aufblock-Effekt aktivieren
         const contentBox = document.getElementById('content-box');
