@@ -1317,99 +1317,123 @@ details[open]:hover {
     
     
 
-<div id="xyz" class="page-section">
-    <div style="text-align: center; margin-bottom: 25px;">
-        <h1 style="margin-bottom: 5px;">🎓 Bundesländer-Quiz</h1>
-        <p style="font-size: 1.2em; color: #e67e22; font-weight: bold; animation: bounce 2s infinite;">
-            ⬇️ Na, traust du dich? Zeig was du drauf hast! ⬇️
+<div id="xyz" class="page-section" style="font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; padding: 40px 10px; background: transparent;">
+    
+    <div style="text-align: center; margin-bottom: 35px;">
+        <h1 style="margin-bottom: 10px; color: #2c3e50; font-weight: 800; font-size: 2.5em; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">🎓 Bundesländer-Master</h1>
+        <p style="font-size: 1.2em; color: #e67e22; font-weight: bold; animation: pulse 1.5s infinite;">
+            🚀 Zeig uns, dass du ein echter Profi bist! 🚀
         </p>
     </div>
     
-    <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 800px; margin: 0 auto; position: relative;">
+    <div style="background: #e3f2fd; padding: 45px 30px 30px 30px; border-radius: 25px; border: 3px solid #3498db; position: relative; box-shadow: 0 15px 35px rgba(52, 152, 219, 0.25); max-width: 750px; margin: 0 auto; overflow: hidden;">
         
-        <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>1. In welchem Bundesland werden in Klasse 2 bereits die Fächer Deutsch, Sachunterricht und Mathematik benotet?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Sachsen</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Hessen</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Niedersachsen</button>
+        <div class="glow-badge" style="position: absolute; top: -10px; right: 25px; background: linear-gradient(45deg, #e74c3c, #f1c40f); color: white; padding: 8px 20px; border-radius: 10px; font-size: 0.9em; font-weight: 900; box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4); letter-spacing: 1.5px; transform: rotate(3deg); z-index: 10;">
+            PRO-QUIZ 🔥
         </div>
 
-
-        <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>2. Was kann in Bayern in den Klassen 1 bis 3 das Zwischenzeugnis ersetzen?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Eine verbale Beurteilung im Fließtext</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Ein Lernentwicklungsgespräch</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Ein Portfolio</button>
-        </div>
-
-                <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>3. In Brandenburg können in den Klassen 3 und 4 die Noten durch schriftliche Informationen zur Lernentwicklung ersetzt werden. Wer muss dies beschließen?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 7. Klasse</button>
-        </div>
-
-                <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>4. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Einheitliche Regeln überall</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Noten erst ab der 3. Klasse</button>
-        </div>
-
-                <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>5. Welche Besonderheit gilt für das Bundesland Hessen in Bezug auf das Arbeits- und Sozialverhalten in den Klassen 2 bis 4?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Es wird standardmäßig mit Noten bewertet, kann aber auf Beschluss verbal erfolgen.</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Es muss immer benotet werden.</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Das Arbeits- und Sozialverhalten wird gar nicht berücksichtigt.</button>
-        </div>
-
-                <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>6. In Bremen kann die Rückmeldung in Klasse 3 auch mündlich erfolgen. Wer muss dies beschließen?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Die Eltern</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Der Bundeskanzler</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Die Schulkonferenz</button>
-        </div>
-
-                <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>7. Welches Bundesland nutzt in Klasse 3 und 4 eine „kombinierte Leistungsbeurteilung“ aus Ziffernnoten und verbalen Beschreibungen?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Rheinland Pfalz</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Berlin</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Brandenburg</button>
-        </div>
-
-                <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>8. Was ist die Besonderheit in Schleswig-Holstein im ersten Halbjahr der 1. Klasse?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Es gibt bereits Noten in Mathe.</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Auf ein Zeugnis kann zugunsten eines Elterngesprächs verzichtet werden.</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Es wird ein kompetenzorientiertes Raster ausgegeben.</button>
-        </div>
-
-                <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>9. Welchen Einfluss hat die individuelle Lernentwicklung in Thüringen auf die endgültige Leistungsbewertung?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Sie wirkt sich maßgeblich auf die Note aus.</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Sie ist die alleinige Grundlage für die Note.</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Sie wird zwar genannt, wirkt sich aber nicht auf die endgültige Bewertung aus.</button>
-        </div>
-
-                        <div class="quiz-container" style="margin-bottom: 30px;">
-            <p style="font-size: 1.1em;"><strong>10. In Berlin können Erziehungsberechtigte in den Klassen 3 und 4 etwas mit Mehrheit beschließen. Was ist das?</strong></p>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Dass die Kinder keine Hausaufgaben bekommen.</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, true)">Dass die Leistungsbeurteilung verbal statt mit Noten erfolgt.</button>
-            <button class="quiz-btn" onclick="checkQuiz(this, false)">Dass das Schuljahr um einen Monat verlängert wird.</button>
-        </div>
-
-        
-
-        <div class="bottom-score-banner" id="score-banner">
-            <div style="flex: 1;">
-                <span style="display: block; font-size: 0.8em; text-transform: uppercase; opacity: 0.8;">Dein Score</span>
-                <span id="score-display" style="font-size: 2em; font-weight: bold; color: #2ecc71;"><span id="score">0</span> / 10</span>
+        <div id="quiz-flow">
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>1. In welchem Bundesland werden in Klasse 2 bereits die Fächer Deutsch, Sachunterricht und Mathematik benotet?</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Sachsen</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Hessen</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Niedersachsen</button>
+                </div>
             </div>
-            <div id="quiz-status" style="flex: 2; font-size: 1.2em; font-weight: 500; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 20px;">
-                Viel Glück! 🍀
+
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>2. Was kann in Bayern in den Klassen 1 bis 3 das Zwischenzeugnis ersetzen?</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Verbale Beurteilung</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Lernentwicklungsgespräch</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Ein Portfolio</button>
+                </div>
             </div>
-            <div style="flex: 1;">
-                <button id="reset-btn" onclick="resetQuiz()">🔄 Neustart</button>
+
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>3. In Brandenburg: Wer entscheidet über schriftliche Infos statt Noten in Klasse 3/4?</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Landesregierung</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Schulkonferenz</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Das Schulamt</button>
+                </div>
+            </div>
+
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>4. Was ist typisch für den "Flickenteppich" in Deutschland?</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Einheitliche Regeln</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Bildung ist Ländersache</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Noten ab Klasse 3</button>
+                </div>
+            </div>
+
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>5. Besonderheit Hessen (Klasse 2-4) zum Arbeitsverhalten?</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Noten Standard, verbal möglich</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Immer zwingend Noten</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Keine Berücksichtigung</button>
+                </div>
+            </div>
+
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>6. Bremen Klasse 3: Mündliche Rückmeldung möglich?</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Eltern entscheiden</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Bundeskanzler</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Schulkonferenz</button>
+                </div>
+            </div>
+
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>7. Wer nutzt die „kombinierte Leistungsbeurteilung“?</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Rheinland-Pfalz</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Berlin</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Brandenburg</button>
+                </div>
+            </div>
+
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>8. Schleswig-Holstein Klasse 1 (1. Halbjahr):</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Noten in Mathe</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Gespräch statt Zeugnis</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Kompetenzraster</button>
+                </div>
+            </div>
+
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>9. Thüringen: Einfluss der individuellen Lernentwicklung?</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Maßgeblich für Note</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Alleinige Grundlage</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Wird genannt, kein Einfluss</button>
+                </div>
+            </div>
+
+            <div class="quiz-card" style="margin-bottom: 25px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 18px; border: 1px solid rgba(52, 152, 219, 0.2);">
+                <p style="font-size: 1.15em; color: #2c3e50; margin-bottom: 15px;"><strong>10. Berlin Klasse 3/4: Was entscheiden Eltern mehrheitlich?</strong></p>
+                <div class="options-grid">
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Keine Hausaufgaben</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, true)">Verbal statt Noten</button>
+                    <button class="quiz-btn-cool" onclick="checkQuiz(this, false)">Längeres Schuljahr</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-score-banner" id="score-banner" style="background: #2c3e50; color: white; padding: 25px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; margin-top: 35px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);">
+            <div style="flex: 1; text-align: left;">
+                <span style="display: block; font-size: 0.8em; text-transform: uppercase; letter-spacing: 2px; color: #3498db; font-weight: bold;">Dein Score</span>
+                <span id="score-display" style="font-size: 2.2em; font-weight: 900; color: #2ecc71;"><span id="score">0</span><span style="color: white; opacity: 0.5; font-size: 0.6em; margin-left: 5px;">/ 10</span></span>
+            </div>
+            <div id="quiz-status" style="flex: 2; font-size: 1.3em; font-weight: 600; text-align: center; padding: 0 15px; border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1);">
+                Bereit? Los geht's! 🚀
+            </div>
+            <div style="flex: 1; text-align: right;">
+                <button id="reset-btn" onclick="resetQuiz()" style="padding: 12px 20px; background: transparent; color: white; border: 2px solid white; border-radius: 12px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🔄 Reset</button>
             </div>
         </div>
     </div>
@@ -1418,15 +1442,34 @@ details[open]:hover {
 <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: none;"></canvas>
 
 <style>
-    @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
-    .bottom-score-banner { background: #34495e; color: white; padding: 20px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
-    .quiz-btn { display: block; width: 100%; padding: 14px; margin: 8px 0; background-color: #f8f9fa; border: 2px solid #dee2e6; border-radius: 10px; cursor: pointer; text-align: left; transition: 0.2s; font-size: 15px; }
-    .quiz-btn:hover:not(:disabled) { background-color: #e9ecef; transform: translateX(5px); border-color: #3498db; }
-    .quiz-correct { background-color: #2ecc71 !important; color: white !important; border-color: #27ae60 !important; }
-    .quiz-wrong { background-color: #e74c3c !important; color: white !important; border-color: #c0392b !important; }
-    #reset-btn { padding: 10px 15px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; cursor: pointer; font-weight: bold; }
-    #reset-btn:hover { background: white; color: #34495e; }
-    @media (max-width: 600px) { .bottom-score-banner { flex-direction: column; gap: 15px; text-align: center; } #quiz-status { border-left: none; padding-left: 0; } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    
+    .quiz-card { animation: slideIn 0.5s ease-out; }
+    
+    .quiz-btn-cool { 
+        display: block; width: 100%; padding: 15px 20px; margin: 10px 0; 
+        background: white; border: 2px solid #edf2f7; border-radius: 15px; 
+        cursor: pointer; text-align: left; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        font-size: 16px; font-weight: 600; color: #4a5568; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+
+    .quiz-btn-cool:hover:not(:disabled) { 
+        background: #f7fafc; transform: translateY(-3px) scale(1.01); 
+        border-color: #3498db; color: #3498db; box-shadow: 0 10px 15px rgba(52, 152, 219, 0.1);
+    }
+
+    .quiz-btn-cool:active:not(:disabled) { transform: scale(0.98); }
+
+    .quiz-correct { background: #2ecc71 !important; color: white !important; border-color: #27ae60 !important; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4) !important; }
+    .quiz-wrong { background: #e74c3c !important; color: white !important; border-color: #c0392b !important; box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4) !important; }
+    
+    #reset-btn:hover { background: white !important; color: #2c3e50 !important; transform: rotate(-10deg); }
+
+    @media (max-width: 600px) { 
+        .bottom-score-banner { flex-direction: column; gap: 20px; text-align: center; }
+        #quiz-status { border: none; padding: 10px 0; }
+    }
 </style>
 
 <script>
@@ -1440,8 +1483,12 @@ details[open]:hover {
 
     function checkQuiz(btn, isCorrect) {
         if(btn.disabled) return;
-        const buttons = btn.parentElement.querySelectorAll('.quiz-btn');
-        buttons.forEach(b => b.disabled = true);
+        const buttons = btn.parentElement.querySelectorAll('.quiz-btn-cool');
+        buttons.forEach(b => {
+            b.disabled = true;
+            b.style.opacity = "0.7";
+        });
+        btn.style.opacity = "1";
         answered++;
 
         if (isCorrect) {
@@ -1451,7 +1498,12 @@ details[open]:hover {
         } else {
             btn.classList.add('quiz-wrong');
             btn.innerHTML += " ❌";
-            buttons.forEach(b => { if (b.getAttribute('onclick').includes('true')) b.classList.add('quiz-correct'); });
+            buttons.forEach(b => { 
+                if (b.getAttribute('onclick').includes('true')) {
+                    b.classList.add('quiz-correct');
+                    b.style.opacity = "1";
+                }
+            });
         }
 
         document.getElementById('score').innerText = score;
@@ -1459,12 +1511,16 @@ details[open]:hover {
         
         if (answered === 10) {
             if(score === 10) {
-                status.innerText = "GENIAL! 🔥";
+                status.innerHTML = "UNGLAUBLICH! 👑<br><span style='font-size:0.7em'>Du bist ein Bundesländer-Gott!</span>";
                 startConfetti();
-                setTimeout(stopConfetti, 5000); // Stoppt automatisch nach 5 Sek
+            } else if (score >= 7) {
+                status.innerHTML = "Starke Leistung! ⭐<br><span style='font-size:0.7em'>Du kennst dich echt aus!</span>";
             } else {
-                status.innerText = "Weitermachen 😊";
+                status.innerHTML = "Nicht schlecht! 😊<br><span style='font-size:0.7em'>Ein bisschen Übung noch!</span>";
             }
+        } else {
+            const motivators = ["Weiter so!", "Du schaffst das!", "Halt durch!", "Nächste Frage...", "Läuft bei dir!"];
+            status.innerText = motivators[Math.floor(Math.random()*motivators.length)] + " 🚀";
         }
     }
 
@@ -1472,9 +1528,10 @@ details[open]:hover {
         score = 0; answered = 0;
         document.getElementById('score').innerText = "0";
         document.getElementById('quiz-status').innerText = "Viel Glück! 🍀";
-        document.querySelectorAll('.quiz-btn').forEach(b => {
+        document.querySelectorAll('.quiz-btn-cool').forEach(b => {
             b.classList.remove('quiz-correct', 'quiz-wrong');
             b.disabled = false;
+            b.style.opacity = "1";
             b.innerText = b.innerText.replace(" ✨", "").replace(" ❌", "");
         });
         stopConfetti();
@@ -1504,7 +1561,7 @@ details[open]:hover {
     function renderConfetti() {
         if(!confettiActive) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach((p, i) => {
+        particles.forEach((p) => {
             p.y += Math.cos(p.d) + 3 + p.r / 2;
             p.tilt = Math.sin(p.d) * 15;
             ctx.beginPath();
@@ -1523,16 +1580,6 @@ details[open]:hover {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         canvas.style.display = 'none';
     }
-
-    // --- WICHTIG: Stoppt Konfetti beim Menü-Wechsel ---
-    // Wir überschreiben deine showSection Funktion minimal
-    const originalShowSection = window.showSection;
-    window.showSection = function(sectionId) {
-        stopConfetti(); // Konfetti immer stoppen, wenn man den Reiter wechselt
-        if(typeof originalShowSection === 'function') {
-            originalShowSection(sectionId);
-        }
-    };
 </script>
 
 
