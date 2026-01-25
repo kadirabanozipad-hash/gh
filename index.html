@@ -170,135 +170,73 @@ details[open]:hover {
 
     <div id="stickyPlayer" class="sticky-pill-player">
         <div class="pill-content">
-            <div class="pill-left">
-                <span class="live-dot"></span>
-                <span id="pillTime" class="pill-time">00:00</span>
-            </div>
+            <div id="pillTime" class="pill-time">0:00</div>
             
             <div class="pill-controls">
-                <button onclick="rewindAudio()" class="skip-btn">
-                    <svg width="22" height="22" fill="white" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/><text x="8" y="16" font-size="8" fill="white" font-weight="bold">10</text></svg>
+                <button onclick="rewindAudio()" class="skip-btn" title="10s zurück">
+                    <svg width="22" height="22" fill="#3498db" viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>
                 </button>
                 
                 <button id="stickyPlayPause" onclick="togglePlayPause()" class="main-play-btn">
-                    <span id="playIcon">▶</span>
+                    <svg id="playIcon" width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pauseIcon" width="16" height="16" fill="white" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
                 
-                <button onclick="forwardAudio()" class="skip-btn">
-                    <svg width="22" height="22" fill="white" viewBox="0 0 24 24"><path d="M12 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z"/><text x="10" y="16" font-size="8" fill="white" font-weight="bold">10</text></svg>
+                <button onclick="forwardAudio()" class="skip-btn" title="10s vor">
+                    <svg width="22" height="22" fill="#3498db" viewBox="0 0 24 24"><path d="M11.5 8c2.65 0 5.05.99 6.9 2.6L22 7v9h-9l3.62-3.62c-1.39-1.16-3.16-1.88-5.12-1.88-3.54 0-6.55 2.31-7.6 5.5l-2.37-.78C2.92 11.03 6.85 8 11.5 8z"/></svg>
                 </button>
             </div>
 
-            <div class="pill-progress-container" onclick="seekAudio(event)">
-                <div class="pill-progress-bg">
-                    <div id="stickyProgressBar" class="pill-progress-fill">
-                        <div class="pill-handle"></div>
-                    </div>
-                </div>
+            <div class="pill-progress-wrapper" onclick="seekAudio(event)">
+                <div id="stickyProgressBar" class="pill-progress-fill"></div>
             </div>
         </div>
     </div>
 
     <style>
-        /* OBERER BEREICH */
         .podcast-container {
-            background: #f8fbfe !important;
-            padding: 30px !important;
-            border-radius: 20px !important;
-            margin: 30px 0 !important;
-            text-align: center !important;
-            border: 1px solid #d1e3f8 !important;
+            background: #e3f2fd !important; padding: 25px !important; border-radius: 20px !important;
+            margin: 30px 0 !important; text-align: center !important; border: 2px solid #3498db !important;
             position: relative !important;
         }
 
-        /* DIE STICKY PILLE */
+        /* Die Pille */
         .sticky-pill-player {
-            position: fixed;
-            bottom: -120px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 500px; /* Breiter für bessere Bedienung */
-            background: #2c3e50; /* Edles Dunkelblau/Grau */
-            border-radius: 100px;
-            padding: 12px 25px;
-            z-index: 100000;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 380px; background: #2c3e50; border-radius: 50px;
+            padding: 12px 20px; z-index: 99999; transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
         }
 
         .sticky-pill-player.show { bottom: 25px; }
 
-        .pill-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
+        .pill-content { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 
-        .pill-left { display: flex; align-items: center; min-width: 65px; }
-        .pill-time { color: white; font-family: monospace; font-size: 0.85em; }
+        .pill-time { color: white; font-family: monospace; font-size: 0.85em; min-width: 40px; }
 
-        /* PLAY BUTTON STYLING (Kein Orange!) */
+        .pill-controls { display: flex; align-items: center; gap: 8px; }
+
+        /* Der Play-Button Styling (Kein Orange!) */
         .main-play-btn {
-            background: #3498db !important; /* Dein Blau */
-            border: none !important;
-            color: white !important;
-            width: 45px; height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2em;
-            transition: transform 0.2s, background 0.2s;
-            outline: none !important;
-            appearance: none !important;
-            -webkit-appearance: none !important;
+            background: #3498db !important; border: none !important; border-radius: 50% !important;
+            width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; outline: none !important; transition: background 0.2s;
+        }
+        .main-play-btn:hover { background: #2980b9 !important; }
+        .main-play-btn:active { transform: scale(0.95); }
+
+        .skip-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; outline: none; }
+
+        .pill-progress-wrapper {
+            flex-grow: 1; height: 6px; background: rgba(255,255,255,0.2);
+            border-radius: 10px; cursor: pointer; overflow: hidden;
         }
 
-        .main-play-btn:hover { transform: scale(1.1); background: #2980b9 !important; }
-        .main-play-btn span { margin-left: 2px; } /* Optische Korrektur für das Dreieck */
+        .pill-progress-fill { width: 0%; height: 100%; background: #3498db; }
 
-        .skip-btn { background: none; border: none; cursor: pointer; padding: 5px; transition: opacity 0.2s; }
-        .skip-btn:hover { opacity: 0.7; }
-
-        /* BREITER FORTSCHRITTSBALKEN */
-        .pill-progress-container {
-            flex-grow: 2; /* Nimmt mehr Platz ein */
-            padding: 10px 0;
-            cursor: pointer;
-        }
-
-        .pill-progress-bg {
-            height: 8px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .pill-progress-fill {
-            width: 0%; height: 100%;
-            background: #3498db;
-            border-radius: 10px;
-            position: relative;
-            transition: width 0.1s linear;
-        }
-
-        /* Der kleine "Knopf" am Ende des Fortschritts */
-        .pill-handle {
-            position: absolute;
-            right: -6px; top: 50%;
-            transform: translateY(-50%);
-            width: 12px; height: 12px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        /* Wellen & Punkt */
-        .live-dot { height: 8px; width: 8px; background: #2ecc71; border-radius: 50%; margin-right: 8px; animation: blink 1.5s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        
-        .sound-wave span { display: inline-block; width: 3px; background: #3498db; border-radius: 2px; animation: wave-anim 1.2s infinite ease-in-out; margin: 0 1px; }
+        /* Sound-Wellen */
+        .sound-wave { display: flex; justify-content: center; align-items: flex-end; height: 25px; gap: 3px; margin-bottom: 15px; }
+        .sound-wave span { width: 3px; background: #3498db; border-radius: 2px; animation: wave-anim 1.2s infinite ease-in-out; }
         @keyframes wave-anim { 0%, 100% { height: 8px; } 50% { height: 20px; } }
     </style>
 
@@ -308,35 +246,37 @@ details[open]:hover {
             const podcastCart = document.getElementById('mainPodcastCart');
             const stickyPlayer = document.getElementById('stickyPlayer');
             const playIcon = document.getElementById('playIcon');
-            const stickyProgressBar = document.getElementById('stickyProgressBar');
+            const pauseIcon = document.getElementById('pauseIcon');
             const pillTime = document.getElementById('pillTime');
+            const stickyProgressBar = document.getElementById('stickyProgressBar');
 
             window.togglePlayPause = function() {
                 if (mainAudio.paused) { mainAudio.play(); } else { mainAudio.pause(); }
             };
 
-            window.rewindAudio = function() { mainAudio.currentTime = Math.max(0, mainAudio.currentTime - 10); };
-            window.forwardAudio = function() { mainAudio.currentTime = Math.min(mainAudio.duration, mainAudio.currentTime + 10); };
+            window.rewindAudio = function() { mainAudio.currentTime -= 10; };
+            window.forwardAudio = function() { mainAudio.currentTime += 10; };
 
             window.seekAudio = function(event) {
-                const rect = event.currentTarget.querySelector('.pill-progress-bg').getBoundingClientRect();
+                const rect = event.currentTarget.getBoundingClientRect();
                 const percent = (event.clientX - rect.left) / rect.width;
                 mainAudio.currentTime = percent * mainAudio.duration;
             };
 
-            // Zeit formatieren (00:00)
-            function formatTime(seconds) {
-                const min = Math.floor(seconds / 60);
-                const sec = Math.floor(seconds % 60);
-                return (min < 10 ? '0' : '') + min + ':' + (sec < 10 ? '0' : '') + sec;
+            function formatTime(time) {
+                const mins = Math.floor(time / 60);
+                const secs = Math.floor(time % 60);
+                return mins + ":" + (secs < 10 ? "0" : "") + secs;
             }
 
             mainAudio.onplay = () => {
-                playIcon.innerText = "⏸";
+                playIcon.style.display = "none";
+                pauseIcon.style.display = "block";
             };
 
             mainAudio.onpause = () => {
-                playIcon.innerText = "▶";
+                playIcon.style.display = "block";
+                pauseIcon.style.display = "none";
             };
 
             mainAudio.addEventListener('timeupdate', () => {
@@ -356,7 +296,6 @@ details[open]:hover {
         })();
     </script>
 </div>
-
 
         
 
